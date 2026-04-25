@@ -1,18 +1,25 @@
 package model;
 
+/**
+ * Represents a repair order id.
+ */
 public class OrderId {
     private static int counter = 0;
-    private int id;
+    private final int id;
 
+    /**
+     * Creates a unique order id.
+     */
     public OrderId() {
         this.id = ++counter;
     }
 
-    public int getId() {
-        return id;
-    }
-
+    /**
+     * Returns the id as text.
+     *
+     * @return The id value as string.
+     */
     public String toString() {
-        return "" + id;
+        return String.valueOf(id);
     }
 }

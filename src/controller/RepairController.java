@@ -5,63 +5,91 @@ import integration.Printer;
 import integration.RepairOrderRegistry;
 import model.Customer;
 import model.DiagnosticResult;
+import model.OrderId;
 import model.PhoneNumber;
 import model.RepairOrder;
 import model.RepairTask;
 import model.SerialNumber;
 
 /**
- * This is the application's only controller. All calls to the model pass through this class.
+ * Handles all system operations.
  */
 public class RepairController {
+    private final CustomerRegistry customerRegistry;
+    private final RepairOrderRegistry orderRegistry;
+    private final Printer printer;
     private RepairOrder currentOrder;
-    private CustomerRegistry customerRegistry;
-    private RepairOrderRegistry orderRegistry;
-    private Printer printer;
 
     /**
-     * Creates a new instance.
+     * Creates a new controller.
+     *
+     * @param customerRegistry Used to find customers.
+     * @param orderRegistry Used to store repair orders.
+     * @param printer Used to print accepted repair orders.
      */
-    public RepairController(CustomerRegistry customerRegistry, RepairOrderRegistry orderRegistry, Printer printer) {
+    public RepairController(CustomerRegistry customerRegistry,
+                            RepairOrderRegistry orderRegistry,
+                            Printer printer) {
         this.customerRegistry = customerRegistry;
         this.orderRegistry = orderRegistry;
         this.printer = printer;
     }
 
     /**
-     * Finds a customer.
+     * Finds a customer from phone number.
+     *
+     * @param phone Customer phone number.
+     * @return The found customer.
      */
     public Customer findCustomer(PhoneNumber phone) {
         return customerRegistry.findCustomer(phone);
     }
 
     /**
-     * Starts a new repair order.
+     * Creates and stores a new repair order.
+     *
+     * @param problem Reported problem from customer.
+     * @param phone Customer phone number.
+     * @param serial Bike serial number.
+     * @return The created repair order.
      */
-    public void createRepairOrder(String problem, PhoneNumber phone, SerialNumber serial) {
-        currentOrder = new RepairOrder(problem, phone, serial);
+    public RepairOrder createRepairOrder(String problem, PhoneNumber phone, SerialNumber serial) {
+        Customer customer = customerRegistry.findCustomer(phone);
+        currentOrder = new RepairOrder(new OrderId(), problem, phone, serial, customer);
         orderRegistry.save(currentOrder);
+        return currentOrder;
     }
 
     /**
-     * Adds a diagnostic result.
+     * Adds a diagnostic result to the current order.
+     *
+     * @param result The diagnostic result to add.
+     * @return The updated repair order.
      */
-    public void addDiagnosticResult(DiagnosticResult result) {
+    public RepairOrder addDiagnosticResult(DiagnosticResult result) {
         currentOrder.addDiagnosticResult(result);
+        return currentOrder;
     }
 
     /**
-     * Adds a repair task.
+     * Adds a repair task to the current order.
+     *
+     * @param task The repair task to add.
+     * @return The updated repair order.
      */
-    public void addRepairTask(RepairTask task) {
+    public RepairOrder addRepairTask(RepairTask task) {
         currentOrder.addRepairTask(task);
+        return currentOrder;
     }
 
     /**
-     * Accepts repair order and prints receipt.
+     * Accepts and prints the current repair order.
+     *
+     * @return The accepted repair order.
      */
-    public void acceptRepair() {
+    public RepairOrder acceptRepair() {
         currentOrder.accept();
         printer.printReceipt(currentOrder);
+        return currentOrder;
     }
 }

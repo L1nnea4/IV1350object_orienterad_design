@@ -1,22 +1,31 @@
 package integration;
 
-import model.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import model.RepairOrder;
+
+/**
+ * Stores repair orders in memory.
+ */
 public class RepairOrderRegistry {
+    private final List<RepairOrder> orders = new ArrayList<>();
 
-    private List<RepairOrder> orders = new ArrayList<>();
-
+    /**
+     * Saves one repair order.
+     *
+     * @param order The order to store.
+     */
     public void save(RepairOrder order) {
         orders.add(order);
     }
 
-    public RepairOrder findById(OrderId id) {
-        for (RepairOrder o : orders) {
-            if (o.getId().toString().equals(id.toString())) {
-                return o;
-            }
-        }
-        return null;
+    /**
+     * Returns all stored repair orders.
+     *
+     * @return A copy of all stored orders.
+     */
+    public List<RepairOrder> getAllOrders() {
+        return new ArrayList<>(orders);
     }
 }

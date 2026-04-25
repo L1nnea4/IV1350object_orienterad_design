@@ -1,9 +1,35 @@
 package model;
 
+/**
+ * Represents an amount of money.
+ */
 public class Money {
-    private double amount;
+    private final int amount;
 
-    public Money(double amount) {
+    /**
+     * Creates a money object.
+     *
+     * @param amount The amount in SEK.
+     */
+    public Money(int amount) {
         this.amount = amount;
+    }
+
+    /**
+     * Returns the stored amount.
+     *
+     * @return The amount in SEK.
+     */
+    public int getAmount() {
+        return amount;
+    }
+
+    /**
+     * Returns amount as text.
+     *
+     * @return Text form of this money object.
+     */
+    public String toString() {
+        return amount + " SEK";
     }
 }

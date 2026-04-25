@@ -1,0 +1,16 @@
+se\kth\iv1350\electricbike\model\SerialNumber.class
+se\kth\iv1350\electricbike\model\DiagnosticResult.class
+se\kth\iv1350\electricbike\model\Bike.class
+se\kth\iv1350\electricbike\model\Money.class
+se\kth\iv1350\electricbike\model\RepairTask.class
+se\kth\iv1350\electricbike\model\OrderId.class
+se\kth\iv1350\electricbike\model\PhoneNumber.class
+se\kth\iv1350\electricbike\integration\CustomerRegistry.class
+se\kth\iv1350\electricbike\integration\Printer.class
+se\kth\iv1350\electricbike\model\RepairOrder.class
+se\kth\iv1350\electricbike\controller\RepairController.class
+se\kth\iv1350\electricbike\view\View.class
+se\kth\iv1350\electricbike\startup\Main.class
+se\kth\iv1350\electricbike\integration\RepairOrderRegistry.class
+se\kth\iv1350\electricbike\model\OrderState.class
+se\kth\iv1350\electricbike\model\Customer.class
