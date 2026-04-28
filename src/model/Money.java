@@ -16,13 +16,15 @@ public class Money {
     }
 
     /**
-     * Returns the stored amount.
+     * Returns the stored amount, not used in this solution but could be 
+     * useful in a more complex implementation.
      *
      * @return The amount in SEK.
      */
-    public int getAmount() {
+
+    /*public int getAmount() {
         return amount;
-    }
+    }*/
 
     /**
      * Returns amount as text.

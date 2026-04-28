@@ -70,14 +70,15 @@ public class RepairOrder {
     /**
      * Returns diagnostic count.
      *
-     * @return Number of diagnostics in this order.
+     * @return Number of diagnostics in this order, is used for verification in unit tests.
+
      */
     public int getNumberOfDiagnostics() {
         return diagnostics.size();
     }
 
     /**
-     * Returns task count.
+     * Returns task count, is used for verification in unit tests.
      *
      * @return Number of tasks in this order.
      */

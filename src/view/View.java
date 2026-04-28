@@ -23,7 +23,7 @@ public class View {
     }
 
     /**
-     * Runs one hardcoded basic flow.
+     * Runs one hardcoded basic flow
      */
     public void runFakeExecution() {
         PhoneNumber phone = new PhoneNumber("0701234567");

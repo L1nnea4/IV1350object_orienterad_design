@@ -7,7 +7,7 @@ import integration.RepairOrderRegistry;
 import view.View;
 
 /**
- * Starts the application.
+ * Starts the application, contains the main method used to start the application.
  */
 public class Main {
     /**

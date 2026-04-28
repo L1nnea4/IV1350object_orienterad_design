@@ -12,7 +12,7 @@ import model.RepairTask;
 import model.SerialNumber;
 
 /**
- * Handles all system operations.
+ * This is the applications only controller. All calls to the model pass through here. 
  */
 public class RepairController {
     private final CustomerRegistry customerRegistry;
@@ -79,7 +79,7 @@ public class RepairController {
      */
     public RepairOrder addRepairTask(RepairTask task) {
         currentOrder.addRepairTask(task);
-        return task;
+        return currentOrder;
     }
 
     /**
