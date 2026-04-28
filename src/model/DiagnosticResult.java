@@ -20,6 +20,7 @@ public class DiagnosticResult {
      *
      * @return Text form of diagnostic result.
      */
+    @Override
     public String toString() {
         return description;
     }

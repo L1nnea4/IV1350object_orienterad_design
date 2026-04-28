@@ -26,6 +26,7 @@ public class Bike {
      *
      * @return Text form of bike.
      */
+    @Override
     public String toString() {
         return brand + " " + model + " " + serial;
     }

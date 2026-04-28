@@ -26,6 +26,7 @@ public class Customer {
      *
      * @return Text form of customer.
      */
+    @Override
     public String toString() {
         return name + " (" + email + ", " + phone + ")";
     }

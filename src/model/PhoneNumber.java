@@ -20,6 +20,7 @@ public class PhoneNumber {
      *
      * @return The phone number text.
      */
+    @Override
     public String toString() {
         return number;
     }

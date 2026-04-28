@@ -91,6 +91,7 @@ public class RepairOrder {
      *
      * @return Order details as text.
      */
+    @Override
     public String toString() {
         return "Order " + id + " customer: " + customer + " bike: " + bike + " problem: " + problem + " state: " + state;
     }

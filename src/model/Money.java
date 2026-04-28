@@ -31,6 +31,7 @@ public class Money {
      *
      * @return Text form of this money object.
      */
+    @Override
     public String toString() {
         return amount + " SEK";
     }

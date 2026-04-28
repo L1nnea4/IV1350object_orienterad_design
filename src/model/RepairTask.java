@@ -26,6 +26,7 @@ public class RepairTask {
      *
      * @return Text form of repair task.
      */
+    @Override
     public String toString() {
         return name + ": " + description + " (" + cost + ")";
     }

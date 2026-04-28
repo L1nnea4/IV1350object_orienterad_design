@@ -20,6 +20,7 @@ public class SerialNumber {
      *
      * @return The serial number text.
      */
+    @Override
     public String toString() {
         return serial;
     }
