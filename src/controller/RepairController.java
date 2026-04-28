@@ -79,7 +79,7 @@ public class RepairController {
      */
     public RepairOrder addRepairTask(RepairTask task) {
         currentOrder.addRepairTask(task);
-        return currentOrder;
+        return task;
     }
 
     /**
