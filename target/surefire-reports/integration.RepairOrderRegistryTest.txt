@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: controller.RepairControllerTest
+Test set: integration.RepairOrderRegistryTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.053 s -- in controller.RepairControllerTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.055 s -- in integration.RepairOrderRegistryTest

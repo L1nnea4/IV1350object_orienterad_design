@@ -22,6 +22,5 @@ public class Main {
         RepairController controller = new RepairController(customerRegistry, orderRegistry, printer);
         View view = new View(controller);
         view.runFakeExecution();
-        //view.debugPrintAll();
     }
 }
