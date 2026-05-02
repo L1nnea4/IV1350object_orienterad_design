@@ -85,6 +85,14 @@ public class RepairOrder {
     public int getNumberOfTasks() {
         return tasks.size();
     }
+/**
+ * Returns the order id.
+ *
+ * @return The order id.
+ */
+public OrderId getId() {
+    return id;
+}
 
     /**
      * Returns a text version of this repair order.

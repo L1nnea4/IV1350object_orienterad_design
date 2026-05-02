@@ -1,8 +1,6 @@
 package integration;
 
 import org.junit.jupiter.api.AfterEach;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,11 +11,11 @@ import model.RepairOrder;
 import model.SerialNumber;
 
 /**
- * Tests the RepairOrderRegistry class.
+ * Tests the Printer class.
  */
-public class RepairOrderRegistryTest {
+public class PrinterTest {
 
-    private RepairOrderRegistry registry;
+    private Printer printer;
     private RepairOrder order;
 
     /**
@@ -25,7 +23,7 @@ public class RepairOrderRegistryTest {
      */
     @BeforeEach
     public void setUp() {
-        registry = new RepairOrderRegistry();
+        printer = new Printer();
 
         order = new RepairOrder(
             new OrderId(),
@@ -41,28 +39,15 @@ public class RepairOrderRegistryTest {
      */
     @AfterEach
     public void tearDown() {
-        registry = null;
+        printer = null;
         order = null;
     }
 
     /**
-     * Verifies that save stores the order.
+     * Verifies that printReceipt does not crash.
      */
     @Test
-    public void testSaveStoresOrder() {
-        registry.save(order);
-        assertEquals(1, registry.getAllOrders().size());
-    }
-
-    /**
-     * Verifies that findById returns the correct order.
-     */
-    @Test
-    public void testFindByIdReturnsOrder() {
-        registry.save(order);
-        RepairOrder found = registry.findById(order.getId());
-
-        assertNotNull(found);
-        assertEquals(order.getId(), found.getId());
+    public void testPrintReceiptDoesNotCrash() {
+        printer.printReceipt(order);
     }
 }

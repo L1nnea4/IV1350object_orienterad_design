@@ -3,6 +3,7 @@ package integration;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.OrderId;
 import model.RepairOrder;
 
 /**
@@ -19,6 +20,21 @@ public class RepairOrderRegistry {
     public void save(RepairOrder order) {
         orders.add(order);
     }
+
+    /**
+     * Finds one order by id.
+     *
+     * @param id The id to search for.
+     * @return The order with the given id, or null if not found.
+     */
+public RepairOrder findById(OrderId id) {
+    for (RepairOrder order : orders) {
+        if (order.getId().getValue() == id.getValue()) {
+            return order;
+        }
+    }
+    return null;
+}
 
     /**
      * Returns all stored repair orders.

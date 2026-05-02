@@ -13,6 +13,14 @@ public class OrderId {
     public OrderId() {
         this.id = ++counter;
     }
+    /**
+     * Returns the id value.
+     *
+     * @return The id value.
+     */
+public int getValue() {
+    return id;
+}
 
     /**
      * Returns the id as text.
