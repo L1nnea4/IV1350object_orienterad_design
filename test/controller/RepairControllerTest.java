@@ -26,8 +26,9 @@ public class RepairControllerTest {
     private RepairOrderRegistry registry;
 
     /**
-     * Sets up test environment before each test.
-     */
+    * Creates a new RepairController and its dependencies before each test
+    * to ensure that tests do not share state
+    */
     @BeforeEach
     public void setUp() {
         registry = new RepairOrderRegistry();
@@ -39,7 +40,7 @@ public class RepairControllerTest {
     }
 
     /**
-     * Cleans up after each test.
+     * Drops references to the controller and registry after each test.
      */
     @AfterEach
     public void tearDown() {

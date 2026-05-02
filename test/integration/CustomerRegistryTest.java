@@ -16,7 +16,7 @@ public class CustomerRegistryTest {
     private CustomerRegistry registry;
 
     /**
-     * Sets up test data before each test.
+     * Creates a new CustomerRegistry object before each test.
      */
     @BeforeEach
     public void setUp() {
@@ -24,7 +24,7 @@ public class CustomerRegistryTest {
     }
 
     /**
-     * Cleans up after each test.
+     * Clears the registry reference after each test.
      */
     @AfterEach
     public void tearDown() {

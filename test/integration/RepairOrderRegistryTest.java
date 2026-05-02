@@ -21,7 +21,7 @@ public class RepairOrderRegistryTest {
     private RepairOrder order;
 
     /**
-     * Sets up test data before each test.
+     * Creates an empty registry and one sample repair order used by the tests.
      */
     @BeforeEach
     public void setUp() {
@@ -37,7 +37,7 @@ public class RepairOrderRegistryTest {
     }
 
     /**
-     * Cleans up after each test.
+     * Clears the registry and order references after each test.
      */
     @AfterEach
     public void tearDown() {

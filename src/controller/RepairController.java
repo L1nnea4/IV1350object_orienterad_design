@@ -12,7 +12,7 @@ import model.RepairTask;
 import model.SerialNumber;
 
 /**
- * This is the applications only controller. All calls to the model pass through here. 
+ * This is the applications only controller. All calls from the view to the model and integraion layer pass through here
  */
 public class RepairController {
     private final CustomerRegistry customerRegistry;

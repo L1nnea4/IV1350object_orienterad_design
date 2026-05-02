@@ -13,7 +13,7 @@ public class RepairOrderTest {
     private RepairOrder order;
 
     /**
-     * Sets up test data before each test.
+     * creates a fresh RepairOrder object before each test so tests do not share state
      */
     @BeforeEach
     public void setUp() {
@@ -27,7 +27,7 @@ public class RepairOrderTest {
     }
 
     /**
-     * Cleans up after each test.
+     * Clears references after each test so the next test starts clean.
      */
     @AfterEach
     public void tearDown() {
@@ -43,23 +43,23 @@ public class RepairOrderTest {
         assertEquals(OrderState.ACCEPTED, order.getState());
     }
 
-/**
- * Verifies that diagnostic results are stored.
- */
-@Test
-public void testAddDiagnosticResult() {
-    order.addDiagnosticResult(new DiagnosticResult("Flat tire"));
-    assertEquals(1, order.getNumberOfDiagnostics());
-}
+    /**
+    * Checks that adding one diagnostic increases the diagnostic count to one.
+    */
+    @Test
+    public void testAddDiagnosticResult() {
+        order.addDiagnosticResult(new DiagnosticResult("Flat tire"));
+        assertEquals(1, order.getNumberOfDiagnostics());
+    }
 
-/**
- * Verifies that repair tasks are stored.
- */
-@Test
-public void testAddRepairTask() {
-    order.addRepairTask(new RepairTask("Tire repair", "Patch rear tire", new Money(250)));
-    assertEquals(1, order.getNumberOfTasks());
-}
+    /**
+     *Checks that adding one repair task increases the task count to one.
+     */
+    @Test
+    public void testAddRepairTask() {
+        order.addRepairTask(new RepairTask("Tire repair", "Patch rear tire", new Money(250)));
+        assertEquals(1, order.getNumberOfTasks());
+    }
     /**
      * Verifies that multiple tasks are stored correctly.
      */

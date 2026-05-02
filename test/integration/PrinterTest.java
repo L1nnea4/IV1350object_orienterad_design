@@ -44,7 +44,7 @@ public class PrinterTest {
     }
 
     /**
-     * Verifies that printReceipt does not crash.
+     * Verifies that printReceipt can be called without causing errors/ does not crash.
      */
     @Test
     public void testPrintReceiptDoesNotCrash() {

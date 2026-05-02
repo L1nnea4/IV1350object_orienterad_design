@@ -18,9 +18,9 @@ public class OrderId {
      *
      * @return The id value.
      */
-public int getValue() {
-    return id;
-}
+    public int getValue() {
+        return id;
+    }
 
     /**
      * Returns the id as text.

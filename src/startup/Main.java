@@ -7,13 +7,15 @@ import integration.RepairOrderRegistry;
 import view.View;
 
 /**
- * Starts the application, contains the main method used to start the application.
+ * Application entry point. Creates integration objects, the controller, and the view,
+ * then starts the hardcoded program flow.
  */
 public class Main {
+    
     /**
      * Starts the hardcoded program flow.
      *
-     * @param args Command line arguments.
+     * @param args Command line arguments, unused in this version.
      */
     public static void main(String[] args) {
         CustomerRegistry customerRegistry = new CustomerRegistry();

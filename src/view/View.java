@@ -8,8 +8,9 @@ import model.RepairTask;
 import model.SerialNumber;
 
 /**
- * Simulates user interaction.
- */
+ * Simulates user interaction, runs a fixed sequence of controller calls and prints results to the console.
+ *
+*/
 public class View {
     private final RepairController contr;
 
@@ -23,8 +24,9 @@ public class View {
     }
 
     /**
-     * Runs one hardcoded basic flow
-     */
+     * Runs one hardcoded basic flow, find customer, create order, add diagnostic, add task, accept repair, each controller result is printed out.
+     *
+    */
     public void runFakeExecution() {
         PhoneNumber phone = new PhoneNumber("0701234567");
         SerialNumber serial = new SerialNumber("BIKE123");

@@ -68,9 +68,9 @@ public class RepairOrder {
     }
 
     /**
-     * Returns diagnostic count.
+     * Returns how many diagnositc results have been added to this order.
      *
-     * @return Number of diagnostics in this order, is used for verification in unit tests.
+     * @return Number of diagnostics results in this order
 
      */
     public int getNumberOfDiagnostics() {
@@ -78,21 +78,21 @@ public class RepairOrder {
     }
 
     /**
-     * Returns task count, is used for verification in unit tests.
+     * Returns how mant repair tasks have been added to this order
      *
-     * @return Number of tasks in this order.
+     * @return the number of repair tasks
      */
     public int getNumberOfTasks() {
         return tasks.size();
     }
-/**
- * Returns the order id.
- *
- * @return The order id.
- */
-public OrderId getId() {
-    return id;
-}
+    /**
+    * Returns the order id.
+    *
+    * @return The order id for this repair order.
+    */
+    public OrderId getId() {
+        return id;
+    }
 
     /**
      * Returns a text version of this repair order.
