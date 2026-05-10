@@ -9,7 +9,7 @@ import model.OrderId;
 import model.PhoneNumber;
 import model.RepairOrder;
 import model.SerialNumber;
-import model.Printer;
+import model.dto.RepairOrderDTO;
 
 /**
  * Tests the Printer class.
@@ -49,6 +49,7 @@ public class PrinterTest {
      */
     @Test
     public void testPrintReceiptDoesNotCrash() {
-        printer.printReceipt(order);
+        RepairOrderDTO orderDTO = new RepairOrderDTO(order);
+        printer.printReceipt(orderDTO);
     }
 }

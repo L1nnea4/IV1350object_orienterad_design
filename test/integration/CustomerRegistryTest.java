@@ -3,7 +3,6 @@ package integration;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +36,7 @@ public class CustomerRegistryTest {
      * Verifies that findCustomer returns a customer.
      */
     @Test
-    public void testFindCustomerReturnsCustomer() {
+    public void testFindCustomerReturnsCustomer() throws CustomerNotFoundException {
         Customer customer = registry.findCustomer(new PhoneNumber("123"));
         assertNotNull(customer);
     }
@@ -46,7 +45,7 @@ public class CustomerRegistryTest {
      * Verifies that an unknown phone number throws CustomerNotFoundException.
      */
     @Test
-    public void testUnknownPhoneThrowsCustomerNotFoundException() {
+    public void testUnknownPhoneThrowsCustomerNotFoundException(){
         assertThrows(CustomerNotFoundException.class, () -> {
             registry.findCustomer(new PhoneNumber("0000000000"));
         });

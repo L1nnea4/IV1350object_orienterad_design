@@ -30,15 +30,16 @@ public class RepairControllerTest {
     private RepairOrderRegistry registry;
 
     /**
-    * Creates a new RepairController and its dependencies before each test
-    * to ensure that tests do not share state
-    */
+     * Creates a new RepairController and its dependencies before each test
+     * to ensure that tests do not share state.
+     */
     @BeforeEach
     public void setUp() {
-        registry = new RepairOrderRegistry();
+        registry = RepairOrderRegistry.getInstance();
+
         controller = new RepairController(
                 new CustomerRegistry(),
-                RepairOrderRegistry.getInstance(),
+                registry,
                 new Printer()
         );
     }
@@ -108,10 +109,10 @@ public class RepairControllerTest {
      * Verifies that adding repair task works.
      */
     @Test
-    public void testAddRepairTask() {
+    public void testAddRepairTask() throws CustomerNotFoundException {
         controller.createRepairOrder(
                 "test",
-                new PhoneNumber("1"),
+                new PhoneNumber("0701234567"),
                 new SerialNumber("1")
         );
 
@@ -121,7 +122,7 @@ public class RepairControllerTest {
 
         assertEquals(1, order.getNumberOfTasks());
     }
-}
+
 /**
      * Verifies that an unknown phone number throws CustomerNotFoundException.
      */

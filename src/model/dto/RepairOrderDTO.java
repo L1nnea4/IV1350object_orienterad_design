@@ -64,6 +64,23 @@ public class RepairOrderDTO {
     }
 
     /**
+     * Returns the number of diagnostic results.
+     *
+     * @return Number of diagnostics.
+     */
+    public int getNumberOfDiagnostics() {
+        return diagnostics.size();
+    }
+
+    /**
+     * Returns the number of repair tasks.
+     *
+     * @return Number of repair tasks.
+     */
+    public int getNumberOfTasks() {
+        return tasks.size();
+    }
+    /**
      * Returns a text representation of this repair order.
      *
      * @return Order details as text.

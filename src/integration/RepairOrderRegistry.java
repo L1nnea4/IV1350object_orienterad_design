@@ -16,12 +16,6 @@ public class RepairOrderRegistry {
     private final List<RepairOrderDTO> orders = new ArrayList<>();
 
     /**
-     * Private constructor prevents creating instances from outside.
-     */
-    private RepairOrderRegistry() {
-    }
-
-    /**
      * Returns the only instance of this class.
      *
      * @return The singleton instance of RepairOrderRegistry.

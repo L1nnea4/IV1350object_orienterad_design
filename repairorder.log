@@ -1,0 +1,5 @@
+[2026-05-10T19:38:11.182015300] Order 1 | Customer: Linnea | Bike: Brand Model BIKE123 | Problem: Broken brake | State: CREATED | Diagnostics: [Brake worn out] | Total cost: 0 SEK
+[2026-05-10T19:38:11.192248900] Order 1 | Customer: Linnea | Bike: Brand Model BIKE123 | Problem: Broken brake | State: CREATED | Diagnostics: [Brake worn out] | Tasks: [Replace brake: Fix brake (500 SEK)] | Total cost: 500 SEK
+[2026-05-10T19:38:11.193851200] Order 1 | Customer: Linnea | Bike: Brand Model BIKE123 | Problem: Broken brake | State: ACCEPTED | Diagnostics: [Brake worn out] | Tasks: [Replace brake: Fix brake (500 SEK)] | Total cost: 500 SEK
+[2026-05-10T19:38:11.203545900] Order 2 | Customer: Linnea | Bike: Brand Model BIKE456 | Problem: Flat tire | State: CREATED | Tasks: [Replace tire: New rear tire (300 SEK)] | Total cost: 300 SEK
+[2026-05-10T19:38:11.204544600] Order 2 | Customer: Linnea | Bike: Brand Model BIKE456 | Problem: Flat tire | State: ACCEPTED | Tasks: [Replace tire: New rear tire (300 SEK)] | Total cost: 270 SEK

@@ -1,0 +1,8 @@
+[2026-05-10T19:38:11.202538300] Database failure when searching for phone number: 999999999
+integration.DatabaseFailureException: Database failure when searching for phone number: 999999999
+	at integration.CustomerRegistry.findCustomer(CustomerRegistry.java:25)
+	at controller.RepairController.findCustomer(RepairController.java:54)
+	at view.View.runDatabaseFailureFlow(View.java:87)
+	at view.View.runFakeExecution(View.java:46)
+	at startup.Main.main(Main.java:26)
+
