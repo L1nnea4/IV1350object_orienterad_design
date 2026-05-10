@@ -1,6 +1,6 @@
 package model;
 
-import model.dto.RepairOrderDTO;
+import dto.RepairOrderDTO;
 
 /**
  * A simple test observer that counts how many times it has been notified.

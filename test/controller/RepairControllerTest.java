@@ -8,9 +8,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import integration.CustomerNotFoundException;
+import dto.RepairOrderDTO;
+import exception.CustomerNotFoundException;
+import exception.DatabaseFailureException;
 import integration.CustomerRegistry;
-import integration.DatabaseFailureException;
 import integration.Printer;
 import integration.RepairOrderRegistry;
 import model.DiagnosticResult;
@@ -19,7 +20,6 @@ import model.OrderState;
 import model.PhoneNumber;
 import model.RepairTask;
 import model.SerialNumber;
-import model.dto.RepairOrderDTO;
 
 /**
  * Tests the RepairController class.

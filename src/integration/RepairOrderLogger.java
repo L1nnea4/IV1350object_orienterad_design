@@ -1,12 +1,12 @@
-package view;
+package integration;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 
+import dto.RepairOrderDTO;
 import model.RepairOrderObserver;
-import model.dto.RepairOrderDTO;
 
 /**
  * Observer that writes repair order updates to a log file.

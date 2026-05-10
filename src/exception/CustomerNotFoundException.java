@@ -1,4 +1,4 @@
-package integration;
+package exception;
 
 /**
  * Thrown when a customer with the given phone number does not exist in the registry.

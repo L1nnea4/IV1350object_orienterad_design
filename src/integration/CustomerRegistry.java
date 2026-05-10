@@ -1,5 +1,7 @@
 package integration;
 
+import exception.CustomerNotFoundException;
+import exception.DatabaseFailureException;
 import model.Customer;
 import model.PhoneNumber;
 

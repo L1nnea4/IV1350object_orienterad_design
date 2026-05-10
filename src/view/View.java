@@ -1,16 +1,17 @@
 package view;
 
 import controller.RepairController;
-import integration.CustomerNotFoundException;
-import integration.DatabaseFailureException;
-import integration.ExceptionLogger;
+import dto.RepairOrderDTO;
+import exception.CustomerNotFoundException;
+import exception.DatabaseFailureException;
+import exception.ExceptionLogger;
+import integration.RepairOrderLogger;
 import model.DiagnosticResult;
 import model.LoyalCustomerDiscountStrategy;
 import model.Money;
 import model.PhoneNumber;
 import model.RepairTask;
 import model.SerialNumber;
-import model.dto.RepairOrderDTO;
 
 /**
  * Simulates user interaction, runs a fixed sequence of controller calls and prints results to the console.

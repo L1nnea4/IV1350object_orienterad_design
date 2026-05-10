@@ -6,12 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import dto.RepairOrderDTO;
 import model.Customer;
 import model.OrderId;
 import model.PhoneNumber;
 import model.RepairOrder;
 import model.SerialNumber;
-import model.dto.RepairOrderDTO;
 
 
 /**

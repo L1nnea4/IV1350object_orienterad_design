@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.dto.RepairOrderDTO;
+import dto.RepairOrderDTO;
 
 /**
  * Represents a repair order. This is the observed object in the Observer pattern.

@@ -1,6 +1,8 @@
 package controller;
 
-import integration.CustomerNotFoundException;
+import dto.CustomerDTO;
+import dto.RepairOrderDTO;
+import exception.CustomerNotFoundException;
 import integration.CustomerRegistry;
 import integration.Printer;
 import integration.RepairOrderRegistry;
@@ -13,8 +15,6 @@ import model.RepairOrder;
 import model.RepairOrderObserver;
 import model.RepairTask;
 import model.SerialNumber;
-import model.dto.CustomerDTO;
-import model.dto.RepairOrderDTO;
 
 
 

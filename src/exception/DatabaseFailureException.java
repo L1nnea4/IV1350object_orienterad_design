@@ -1,4 +1,4 @@
-package integration;
+package exception;
 
 /**
  * Thrown when the database cannot be reached, for example because the server is down.

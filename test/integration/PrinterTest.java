@@ -4,12 +4,12 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import dto.RepairOrderDTO;
 import model.Customer;
 import model.OrderId;
 import model.PhoneNumber;
 import model.RepairOrder;
 import model.SerialNumber;
-import model.dto.RepairOrderDTO;
 
 /**
  * Tests the Printer class.

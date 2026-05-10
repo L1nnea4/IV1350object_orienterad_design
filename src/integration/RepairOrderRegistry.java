@@ -3,9 +3,9 @@ package integration;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.RepairOrderDTO;
 import model.OrderId;
 import model.RepairOrder;
-import model.dto.RepairOrderDTO;
 
 /**
  * Stores repair orders in memory. This class is a Singleton because there must

@@ -1,6 +1,6 @@
 package model;
 
-import model.dto.RepairOrderDTO;
+import dto.RepairOrderDTO;
 
 /**
  * Observer interface for receiving repair order updates.

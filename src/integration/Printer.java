@@ -1,6 +1,6 @@
 package integration;
 
-import model.dto.RepairOrderDTO;
+import dto.RepairOrderDTO;
 
 /**
  * Prints information to standard output.

@@ -1,4 +1,4 @@
-package integration;
+package exception;
 
 import java.io.FileWriter;
 import java.io.IOException;

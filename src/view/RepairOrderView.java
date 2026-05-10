@@ -1,7 +1,7 @@
 package view;
 
+import dto.RepairOrderDTO;
 import model.RepairOrderObserver;
-import model.dto.RepairOrderDTO;
 
 /**
  * Observer that prints updated repair orders to the terminal.
