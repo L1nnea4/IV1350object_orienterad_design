@@ -1,18 +1,26 @@
 package view;
 
 import controller.RepairController;
+import integration.CustomerNotFoundException;
+import integration.DatabaseFailureException;
+import integration.ExceptionLogger;
 import model.DiagnosticResult;
+import model.LoyalCustomerDiscountStrategy;
 import model.Money;
 import model.PhoneNumber;
 import model.RepairTask;
 import model.SerialNumber;
+import model.dto.RepairOrderDTO;
 
 /**
  * Simulates user interaction, runs a fixed sequence of controller calls and prints results to the console.
- *
+ *All exceptions from the controller are caught here.
 */
 public class View {
     private final RepairController contr;
+    private final ExceptionLogger exceptionLogger = new ExceptionLogger();
+    private final RepairOrderView orderView = new RepairOrderView();
+    private final RepairOrderLogger orderLogger = new RepairOrderLogger();
 
     /**
      * Creates a new view.
@@ -24,20 +32,78 @@ public class View {
     }
 
     /**
-     * Runs one hardcoded basic flow, find customer, create order, add diagnostic, add task, accept repair, each controller result is printed out.
-     *
+     * Runs several hardcoded scenarios to demonstrate the program flow:
+     * successful flow, unknown customer, database failure, and discount.
     */
     public void runFakeExecution() {
+        System.out.println("=== SCENARIO 1: SUCCESSFUL REPAIR ===");
+        runSuccessfulFlow();
+
+        System.out.println("\n=== SCENARIO 2: UNKNOWN CUSTOMER ===");
+        runUnknownCustomerFlow();
+
+        System.out.println("\n=== SCENARIO 3: DATABASE FAILURE ===");
+        runDatabaseFailureFlow();
+
+        System.out.println("\n=== SCENARIO 4: LOYAL CUSTOMER DISCOUNT ===");
+        runDiscountFlow();
+    }
+
+    private void runSuccessfulFlow() {
         PhoneNumber phone = new PhoneNumber("0701234567");
         SerialNumber serial = new SerialNumber("BIKE123");
-        System.out.println("=== FIND CUSTOMER ===");
-        System.out.println(contr.findCustomer(phone));
-        System.out.println("=== CREATE REPAIR ORDER ===");
-        System.out.println(contr.createRepairOrder("Broken brake", phone, serial));
-        System.out.println("=== ADD DIAGNOSTIC RESULT ===");
-        System.out.println(contr.addDiagnosticResult(new DiagnosticResult("Brake worn out")));
-        System.out.println("=== ADD REPAIR TASK ===");
-        System.out.println(contr.addRepairTask(new RepairTask("Replace brake", "Fix brake", new Money(500))));
-        System.out.println(contr.acceptRepair());
+
+        try {
+            System.out.println("Find customer: " + contr.findCustomer(phone));
+            RepairOrderDTO order = contr.createRepairOrder("Broken brake", phone, serial,
+                    orderView, orderLogger);
+            System.out.println("Created order: " + order);
+
+            order = contr.addDiagnosticResult(new DiagnosticResult("Brake worn out"));
+            System.out.println("After diagnostic: " + order);
+
+            order = contr.addRepairTask(new RepairTask("Replace brake", "Fix brake", new Money(500)));
+            System.out.println("After task: " + order);
+
+            order = contr.acceptRepair();
+            System.out.println("Accepted order total: " + order.getTotalCost() + " SEK");
+        } catch (CustomerNotFoundException e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
     }
+
+    private void runUnknownCustomerFlow() {
+        PhoneNumber unknownPhone = new PhoneNumber("0000000000");
+        try {
+            contr.findCustomer(unknownPhone);
+        } catch (CustomerNotFoundException e) {
+            System.out.println("Could not find customer: " + e.getMessage());
+        }
+    }
+
+    private void runDatabaseFailureFlow() {
+        PhoneNumber badPhone = new PhoneNumber("999999999");
+        try {
+            contr.findCustomer(badPhone);
+        } catch (CustomerNotFoundException e) {
+            System.out.println("Could not find customer: " + e.getMessage());
+        } catch (DatabaseFailureException e) {
+            exceptionLogger.log(e);
+            System.out.println("The system is temporarily unavailable, please try again later.");
+        }
+    }
+
+    private void runDiscountFlow() {
+        PhoneNumber phone = new PhoneNumber("0701234567");
+        SerialNumber serial = new SerialNumber("BIKE456");
+        try {
+            contr.createRepairOrder("Flat tire", phone, serial, orderView, orderLogger);
+            contr.addRepairTask(new RepairTask("Replace tire", "New rear tire", new Money(300)));
+            contr.setDiscountStrategy(new LoyalCustomerDiscountStrategy());
+            RepairOrderDTO order = contr.acceptRepair();
+            System.out.println("Order total with loyal customer discount: " + order.getTotalCost() + " SEK");
+        } catch (CustomerNotFoundException e) {
+            System.out.println("ERROR: " + e.getMessage());
+    }
+}
 }

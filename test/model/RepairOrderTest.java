@@ -44,7 +44,16 @@ public class RepairOrderTest {
     }
 
     /**
-    * Checks that adding one diagnostic increases the diagnostic count to one.
+     * Verifies that reject changes state to REJECTED.
+     */
+    @Test
+    public void testRejectChangesState() {
+        order.reject();
+        assertEquals(OrderState.REJECTED, order.getState());
+    }
+
+    /**
+     * Checks that adding one diagnostic increases the count to one.
     */
     @Test
     public void testAddDiagnosticResult() {
@@ -69,5 +78,44 @@ public class RepairOrderTest {
         order.addRepairTask(new RepairTask("Task2", "Desc", new Money(200)));
 
         assertEquals(2, order.getNumberOfTasks());
+    }
+
+    /**
+     * Verifies that getTotalCost returns the sum of all task costs.
+     */
+    @Test
+    public void testTotalCostWithNoDiscount() {
+        order.addRepairTask(new RepairTask("T1", "Desc", new Money(100)));
+        order.addRepairTask(new RepairTask("T2", "Desc", new Money(200)));
+        assertEquals(300, order.getTotalCost());
+    }
+
+    /**
+     * Verifies that a loyal customer discount strategy reduces the total.
+     */
+    @Test
+    public void testLoyalCustomerDiscountReducesCost() {
+        order.addRepairTask(new RepairTask("T1", "Desc", new Money(1000)));
+        order.setDiscountStrategy(new LoyalCustomerDiscountStrategy());
+        assertEquals(900, order.getTotalCost());
+    }
+
+    /**
+     * Verifies that an observer is notified when a task is added.
+     */
+    @Test
+    public void testObserverIsNotified() {
+        TestObserver observer = new TestObserver();
+        order.addObserver(observer);
+        order.addRepairTask(new RepairTask("Task", "Desc", new Money(100)));
+        assertEquals(1, observer.getCallCount());
+    }
+
+    /**
+     * Verifies that state does not change if no operation is called.
+     */
+    @Test
+    public void testInitialStateIsCreated() {
+        assertEquals(OrderState.CREATED, order.getState());
     }
 }

@@ -3,19 +3,23 @@ package controller;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import integration.CustomerNotFoundException;
 import integration.CustomerRegistry;
+import integration.DatabaseFailureException;
 import integration.Printer;
 import integration.RepairOrderRegistry;
 import model.DiagnosticResult;
 import model.Money;
 import model.OrderState;
 import model.PhoneNumber;
-import model.RepairOrder;
 import model.RepairTask;
 import model.SerialNumber;
+import model.dto.RepairOrderDTO;
 
 /**
  * Tests the RepairController class.
@@ -34,7 +38,7 @@ public class RepairControllerTest {
         registry = new RepairOrderRegistry();
         controller = new RepairController(
                 new CustomerRegistry(),
-                registry,
+                RepairOrderRegistry.getInstance(),
                 new Printer()
         );
     }
@@ -52,46 +56,48 @@ public class RepairControllerTest {
      * Verifies that createRepairOrder returns a created order.
      */
     @Test
-    public void testCreateOrder() {
-        RepairOrder order = controller.createRepairOrder(
-                "test",
-                new PhoneNumber("1"),
-                new SerialNumber("1")
-        );
-
+    public void testCreateOrderReturnsCreatedOrder() throws CustomerNotFoundException {
+        RepairOrderDTO order = controller.createRepairOrder(
+                "test", new PhoneNumber("0701234567"), new SerialNumber("1"));
         assertNotNull(order);
         assertEquals(OrderState.CREATED, order.getState());
         assertEquals(1, registry.getAllOrders().size());
     }
 
     /**
-     * Verifies that acceptRepair changes state to ACCEPTED.
+     * Verifies that acceptRepair changes the order state to ACCEPTED.
      */
     @Test
-    public void testAcceptRepair() {
+    public void testAcceptRepairChangesStateToAccepted() throws CustomerNotFoundException {
         controller.createRepairOrder(
-                "test",
-                new PhoneNumber("1"),
-                new SerialNumber("1")
-        );
+                "test", new PhoneNumber("0701234567"), new SerialNumber("1"));
+        RepairOrderDTO accepted = controller.acceptRepair();
+        assertEquals(OrderState.ACCEPTED, accepted.getState());
+    }
 
-        RepairOrder acceptedOrder = controller.acceptRepair();
-
-        assertEquals(OrderState.ACCEPTED, acceptedOrder.getState());
+    /**
+     * Verifies that rejectRepair changes the order state to REJECTED.
+     */
+    @Test
+    public void testRejectRepairChangesStateToRejected() throws CustomerNotFoundException {
+        controller.createRepairOrder(
+                "test", new PhoneNumber("0701234567"), new SerialNumber("1"));
+        RepairOrderDTO rejected = controller.rejectRepair();
+        assertEquals(OrderState.REJECTED, rejected.getState());
     }
 
     /**
      * Verifies that adding diagnostic result works.
      */
     @Test
-    public void testAddDiagnosticResult() {
+    public void testAddDiagnosticResult() throws CustomerNotFoundException {
         controller.createRepairOrder(
                 "test",
-                new PhoneNumber("1"),
+                new PhoneNumber("0701234567"),
                 new SerialNumber("1")
         );
 
-        RepairOrder order = controller.addDiagnosticResult(
+        RepairOrderDTO order = controller.addDiagnosticResult(
                 new DiagnosticResult("Test diag")
         );
 
@@ -109,10 +115,43 @@ public class RepairControllerTest {
                 new SerialNumber("1")
         );
 
-        RepairOrder order = controller.addRepairTask(
+        RepairOrderDTO order = controller.addRepairTask(
                 new RepairTask("Task", "Desc", new Money(100))
         );
 
         assertEquals(1, order.getNumberOfTasks());
+    }
+}
+/**
+     * Verifies that an unknown phone number throws CustomerNotFoundException.
+     */
+    @Test
+    public void testUnknownPhoneThrowsCustomerNotFoundException() {
+        assertThrows(CustomerNotFoundException.class, () -> {
+            controller.findCustomer(new PhoneNumber("0000000000"));
+        });
+    }
+
+    /**
+     * Verifies that the database failure number throws DatabaseFailureException.
+     */
+    @Test
+    public void testDatabaseFailureThrowsDatabaseFailureException() {
+        assertThrows(DatabaseFailureException.class, () -> {
+            controller.findCustomer(new PhoneNumber("999999999"));
+        });
+    }
+
+    /**
+     * Verifies that total cost is calculated correctly.
+     */
+    @Test
+    public void testTotalCostAfterAddingTasks() throws CustomerNotFoundException {
+        controller.createRepairOrder(
+                "test", new PhoneNumber("0701234567"), new SerialNumber("1"));
+        controller.addRepairTask(new RepairTask("T1", "Desc", new Money(200)));
+        controller.addRepairTask(new RepairTask("T2", "Desc", new Money(300)));
+        RepairOrderDTO order = controller.acceptRepair();
+        assertEquals(500, order.getTotalCost());
     }
 }

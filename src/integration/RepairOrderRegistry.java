@@ -5,43 +5,64 @@ import java.util.List;
 
 import model.OrderId;
 import model.RepairOrder;
+import model.dto.RepairOrderDTO;
 
 /**
- * Stores repair orders in memory.
+ * Stores repair orders in memory. This class is a Singleton because there must
+ * only be one storage for orders in the application.
  */
 public class RepairOrderRegistry {
-    private final List<RepairOrder> orders = new ArrayList<>();
+    private static RepairOrderRegistry instance;
+    private final List<RepairOrderDTO> orders = new ArrayList<>();
 
     /**
-     * Saves one repair order.
+     * Private constructor prevents creating instances from outside.
+     */
+    private RepairOrderRegistry() {
+    }
+
+    /**
+     * Returns the only instance of this class.
+     *
+     * @return The singleton instance of RepairOrderRegistry.
+     */
+    public static RepairOrderRegistry getInstance() {
+        if (instance == null) {
+            instance = new RepairOrderRegistry();
+        }
+        return instance;
+    }
+
+    /**
+     * Saves a snapshot of the given repair order as a DTO.
      *
      * @param order The order to store.
      */
     public void save(RepairOrder order) {
-        orders.add(order);
+        orders.add(new RepairOrderDTO(order));
     }
 
     /**
      * Finds one order by id.
      *
      * @param id The id to search for.
-     * @return The order with the given id, or null if not found.
+     * @return The matching order DTO, or null if not found.
      */
-public RepairOrder findById(OrderId id) {
-    for (RepairOrder order : orders) {
-        if (order.getId().getValue() == id.getValue()) {
-            return order;
+    public RepairOrderDTO findById(OrderId id) {
+        for (RepairOrderDTO dto : orders) {
+            if (dto.getOrderId() == id.getValue()) {
+                return dto;
         }
     }
     return null;
 }
 
     /**
-     * Returns all stored repair orders.
+     * Returns all stored repair order DTOs.
      *
-     * @return A copy of all stored orders.
+     * @return A copy of all stored order DTOs.
      */
-    public List<RepairOrder> getAllOrders() {
+    public List<RepairOrderDTO> getAllOrders() {
         return new ArrayList<>(orders);
     }
 }

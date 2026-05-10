@@ -2,6 +2,8 @@ package integration;
 
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,5 +40,25 @@ public class CustomerRegistryTest {
     public void testFindCustomerReturnsCustomer() {
         Customer customer = registry.findCustomer(new PhoneNumber("123"));
         assertNotNull(customer);
+    }
+
+    /**
+     * Verifies that an unknown phone number throws CustomerNotFoundException.
+     */
+    @Test
+    public void testUnknownPhoneThrowsCustomerNotFoundException() {
+        assertThrows(CustomerNotFoundException.class, () -> {
+            registry.findCustomer(new PhoneNumber("0000000000"));
+        });
+    }
+
+    /**
+     * Verifies that the database failure number throws DatabaseFailureException.
+     */
+    @Test
+    public void testDatabaseFailureNumberThrowsDatabaseFailureException() {
+        assertThrows(DatabaseFailureException.class, () -> {
+            registry.findCustomer(new PhoneNumber("999999999"));
+        });
     }
 }

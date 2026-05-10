@@ -9,6 +9,7 @@ import model.OrderId;
 import model.PhoneNumber;
 import model.RepairOrder;
 import model.SerialNumber;
+import model.Printer;
 
 /**
  * Tests the Printer class.

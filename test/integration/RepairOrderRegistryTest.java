@@ -11,6 +11,8 @@ import model.OrderId;
 import model.PhoneNumber;
 import model.RepairOrder;
 import model.SerialNumber;
+import model.dto.RepairOrderDTO;
+
 
 /**
  * Tests the RepairOrderRegistry class.
@@ -25,8 +27,7 @@ public class RepairOrderRegistryTest {
      */
     @BeforeEach
     public void setUp() {
-        registry = new RepairOrderRegistry();
-
+        registry = RepairOrderRegistry.getInstance();
         order = new RepairOrder(
             new OrderId(),
             "Problem",
@@ -60,9 +61,9 @@ public class RepairOrderRegistryTest {
     @Test
     public void testFindByIdReturnsOrder() {
         registry.save(order);
-        RepairOrder found = registry.findById(order.getId());
+        RepairOrderDTO found = registry.findById(order.getId());
 
         assertNotNull(found);
-        assertEquals(order.getId(), found.getId());
+        assertEquals(order.getId().getValue(), found.getOrderId());
     }
 }

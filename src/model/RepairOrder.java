@@ -3,8 +3,11 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.dto.RepairOrderDTO;
+
 /**
- * Represents a repair order.
+ * Represents a repair order. This is the observed object in the Observer pattern.
+ * It notifies all registered observers whenever it is updated.
  */
 public class RepairOrder {
     private final OrderId id;
@@ -14,9 +17,11 @@ public class RepairOrder {
     private final Bike bike;
     private final List<RepairTask> tasks = new ArrayList<>();
     private final List<DiagnosticResult> diagnostics = new ArrayList<>();
+    private DiscountStrategy discountStrategy;
+    private final List<RepairOrderObserver> observers = new ArrayList<>();
 
     /**
-     * Creates a new repair order.
+     * Creates a new repair order with no discount.
      *
      * @param id The order id.
      * @param problem The reported customer problem.
@@ -31,31 +36,61 @@ public class RepairOrder {
         this.customer = customer;
         this.bike = new Bike("Brand", "Model", serial);
         this.state = OrderState.CREATED;
+        this.discountStrategy = new NoDiscountStrategy();
     }
 
     /**
-     * Adds one diagnostic result to this order.
+     * Registers an observer that will be notified on every change to this order.
+     *
+     * @param observer The observer to add.
+     */
+    public void addObserver(RepairOrderObserver observer) {
+        observers.add(observer);
+    }
+
+    /**
+     * Sets the discount strategy to use when accepting this order.
+     *
+     * @param strategy The discount strategy to apply.
+     */
+    public void setDiscountStrategy(DiscountStrategy strategy) {
+        this.discountStrategy = strategy;
+    }
+
+    /**
+     * Adds one diagnostic result to this order and notifies observers.
      *
      * @param result The result to add.
      */
     public void addDiagnosticResult(DiagnosticResult result) {
         diagnostics.add(result);
+        notifyObservers();
     }
 
     /**
-     * Adds one repair task to this order.
+     * Adds one repair task to this order and notifies observers.
      *
      * @param task The task to add.
      */
     public void addRepairTask(RepairTask task) {
         tasks.add(task);
+        notifyObservers();
     }
 
     /**
-     * Accepts this repair order.
+     * Accepts this repair order and notifies observers.
      */
     public void accept() {
         state = OrderState.ACCEPTED;
+        notifyObservers();
+    }
+
+    /**
+     * Rejects this repair order and notifies observers.
+     */
+    public void reject() {
+        state = OrderState.REJECTED;
+        notifyObservers();
     }
 
     /**
@@ -68,10 +103,59 @@ public class RepairOrder {
     }
 
     /**
-     * Returns how many diagnositc results have been added to this order.
+     * Returns the order id.
      *
-     * @return Number of diagnostics results in this order
+     * @return The order id for this repair order.
+     */
+    public OrderId getId() {
+        return id;
+    }
+    
 
+    /**
+     * Returns the problem description.
+     *
+     * @return The reported problem.
+     */
+    public String getProblem() {
+        return problem;
+    }
+
+    /**
+     * Returns the customer name.
+     *
+     * @return Customer name.
+     */
+    public String getCustomerName() {
+        return customer.getName();
+    }
+
+    /**
+     * Returns basic bike information.
+     *
+     * @return Bike description.
+     */
+    public String getBikeInfo() {
+        return bike.toString();
+    }
+
+    /**
+     * Returns the total cost of all repair tasks after applying the discount strategy.
+     *
+     * @return Total cost in SEK.
+     */
+    public int getTotalCost() {
+        int total = 0;
+        for (RepairTask task : tasks) {
+            total += task.getCost();
+        }
+        return discountStrategy.applyDiscount(total);
+    }
+
+    /**
+     * Returns how many diagnostic results have been added.
+     *
+     * @return Number of diagnostic results.
      */
     public int getNumberOfDiagnostics() {
         return diagnostics.size();
@@ -85,13 +169,31 @@ public class RepairOrder {
     public int getNumberOfTasks() {
         return tasks.size();
     }
+
     /**
-    * Returns the order id.
+     * Returns text descriptions of all diagnostic results.
     *
-    * @return The order id for this repair order.
+     * @return List of diagnostic descriptions.
+     */
+    public List<String> getDiagnosticDescriptions() {
+        List<String> result = new ArrayList<>();
+        for (DiagnosticResult d : diagnostics) {
+            result.add(d.toString());
+        }
+        return result;
+    }
+
+    /**
+     * Returns text descriptions of all repair tasks including their cost.
+     *
+     * @return List of task descriptions.
     */
-    public OrderId getId() {
-        return id;
+    public List<String> getTaskDescriptions() {
+        List<String> result = new ArrayList<>();
+        for (RepairTask t : tasks) {
+            result.add(t.toString());
+        }
+        return result;
     }
 
     /**
@@ -101,6 +203,14 @@ public class RepairOrder {
      */
     @Override
     public String toString() {
-        return "Order " + id + " customer: " + customer + " bike: " + bike + " problem: " + problem + " state: " + state;
+        return "Order " + id + " customer: " + customer + " bike: " + bike
+                + " problem: " + problem + " state: " + state;
+    }
+
+    private void notifyObservers() {
+        RepairOrderDTO dto = new RepairOrderDTO(this);
+        for (RepairOrderObserver observer : observers) {
+            observer.orderUpdated(dto);
+        }
     }
 }
