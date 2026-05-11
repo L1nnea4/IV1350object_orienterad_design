@@ -13,7 +13,7 @@ public class RepairOrderTest {
     private RepairOrder order;
 
     /**
-     * Creates a fresh RepairOrder object before each test so tests do not share state
+     * Creates a fresh RepairOrder object before each test so tests do not share state.
      */
     @BeforeEach
     public void setUp() {
@@ -42,7 +42,7 @@ public class RepairOrderTest {
     @Test
     public void testAcceptChangesState() {
         order.accept();
-        assertEquals(OrderState.ACCEPTED, order.getState());
+        assertEquals(OrderState.ACCEPTED, order.getState(),    "accept should change the order state to ACCEPTED.");
     }
 
     /**
@@ -51,7 +51,7 @@ public class RepairOrderTest {
     @Test
     public void testRejectChangesState() {
         order.reject();
-        assertEquals(OrderState.REJECTED, order.getState());
+        assertEquals(OrderState.REJECTED, order.getState(),    "reject should change the order state to REJECTED.");
     }
 
     /**
@@ -60,7 +60,7 @@ public class RepairOrderTest {
     @Test
     public void testAddDiagnosticResult() {
         order.addDiagnosticResult(new DiagnosticResult("Flat tire"));
-        assertEquals(1, order.getNumberOfDiagnostics());
+        assertEquals(1, order.getNumberOfDiagnostics(),    "Adding one diagnostic result should increase the diagnostic count to one.");
     }
 
     /**
@@ -69,7 +69,7 @@ public class RepairOrderTest {
     @Test
     public void testAddRepairTask() {
         order.addRepairTask(new RepairTask("Tire repair", "Patch rear tire", new Money(250)));
-        assertEquals(1, order.getNumberOfTasks());
+        assertEquals(1, order.getNumberOfTasks(),    "Adding one repair task should increase the task count to one.");
     }
     /**
      * Verifies that multiple tasks are stored correctly.
@@ -79,14 +79,14 @@ public class RepairOrderTest {
         order.addRepairTask(new RepairTask("Task1", "Desc", new Money(100)));
         order.addRepairTask(new RepairTask("Task2", "Desc", new Money(200)));
 
-        assertEquals(2, order.getNumberOfTasks());
+        assertEquals(2, order.getNumberOfTasks(),    "Adding two repair tasks should result in two stored tasks.");
     }
     /**
     * Verifies that a new repair order has total cost zero.
     */
     @Test
     public void testEmptyOrderHasZeroTotalCost() {
-        assertEquals(0, order.getTotalCost());
+        assertEquals(0, order.getTotalCost(),    "A new repair order should have total cost zero.");
     }
 
     /**
@@ -96,7 +96,7 @@ public class RepairOrderTest {
     public void testTotalCostWithNoDiscount() {
         order.addRepairTask(new RepairTask("T1", "Desc", new Money(100)));
         order.addRepairTask(new RepairTask("T2", "Desc", new Money(200)));
-        assertEquals(300, order.getTotalCost());
+        assertEquals(300, order.getTotalCost(),    "getTotalCost should return the sum of all repair task costs.");
     }
 
     /**
@@ -106,7 +106,7 @@ public class RepairOrderTest {
     public void testLoyalCustomerDiscountReducesCost() {
         order.addRepairTask(new RepairTask("T1", "Desc", new Money(1000)));
         order.setDiscountStrategy(new LoyalCustomerDiscountStrategy());
-        assertEquals(900, order.getTotalCost());
+        assertEquals(900, order.getTotalCost(),    "Loyal customer discount should reduce the total cost by 10 percent.");
     }
 
     /**
@@ -117,7 +117,7 @@ public class RepairOrderTest {
         TestObserver observer = new TestObserver();
         order.addObserver(observer);
         order.addRepairTask(new RepairTask("Task", "Desc", new Money(100)));
-        assertEquals(1, observer.getCallCount());
+        assertEquals(1, observer.getCallCount(),    "Observer should be notified when a repair task is added.");
     }
     /**
     * Verifies that an observer is notified when the order is accepted.
@@ -127,7 +127,7 @@ public class RepairOrderTest {
         TestObserver observer = new TestObserver();
         order.addObserver(observer);
         order.accept();
-        assertEquals(1, observer.getCallCount());
+        assertEquals(1, observer.getCallCount(),    "Observer should be notified when the order is accepted.");
     }
     /**
     * Verifies that an observer is notified when a diagnostic result is added.
@@ -138,7 +138,7 @@ public class RepairOrderTest {
         order.addObserver(observer);
         order.addDiagnosticResult(
             new DiagnosticResult("Flat tire"));
-        assertEquals(1, observer.getCallCount());
+        assertEquals(1, observer.getCallCount(),    "Observer should be notified when a diagnostic result is added.");
     }
 
     /**
@@ -146,6 +146,6 @@ public class RepairOrderTest {
      */
     @Test
     public void testInitialStateIsCreated() {
-        assertEquals(OrderState.CREATED, order.getState());
+        assertEquals(OrderState.CREATED, order.getState(),    "A newly created repair order should have state CREATED.");
     }
 }

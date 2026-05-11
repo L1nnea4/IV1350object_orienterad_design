@@ -14,7 +14,7 @@ public class DiscountStrategyTest {
     @Test
     public void testNoDiscountReturnsFullCost() {
         DiscountStrategy strategy = new NoDiscountStrategy();
-        assertEquals(1000, strategy.applyDiscount(1000));
+        assertEquals(1000, strategy.applyDiscount(1000),    "NoDiscountStrategy should return the original cost unchanged.");
     }
 
     /**
@@ -23,7 +23,7 @@ public class DiscountStrategyTest {
     @Test
     public void testLoyalCustomerDiscountReducesByTenPercent() {
         DiscountStrategy strategy = new LoyalCustomerDiscountStrategy();
-        assertEquals(900, strategy.applyDiscount(1000));
+        assertEquals(900, strategy.applyDiscount(1000),    "LoyalCustomerDiscountStrategy should reduce 1000 SEK to 900 SEK.");
     }
 
     /**
@@ -32,6 +32,6 @@ public class DiscountStrategyTest {
     @Test
     public void testLoyalCustomerDiscountOnThreeHundred() {
         DiscountStrategy strategy = new LoyalCustomerDiscountStrategy();
-        assertEquals(270, strategy.applyDiscount(300));
+        assertEquals(270, strategy.applyDiscount(300),    "LoyalCustomerDiscountStrategy should reduce 300 SEK to 270 SEK.");
     }
 }

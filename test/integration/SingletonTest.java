@@ -15,6 +15,6 @@ public class SingletonTest {
     public void testGetInstanceReturnsSameObject() {
         RepairOrderRegistry first = RepairOrderRegistry.getInstance();
         RepairOrderRegistry second = RepairOrderRegistry.getInstance();
-        assertSame(first, second);
+        assertSame(first, second,    "getInstance should always return the same RepairOrderRegistry instance.");
     }
 }

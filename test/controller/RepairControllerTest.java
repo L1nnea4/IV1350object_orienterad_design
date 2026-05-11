@@ -61,9 +61,9 @@ public class RepairControllerTest {
     public void testCreateOrderReturnsCreatedOrder() throws CustomerNotFoundException {
         RepairOrderDTO order = controller.createRepairOrder(
                 "test", new PhoneNumber("0701234567"), new SerialNumber("1"));
-        assertNotNull(order);
-        assertEquals(OrderState.CREATED, order.getState());
-        assertEquals(1, registry.getAllOrders().size());
+        assertNotNull(order, "createRepairOrder should return a RepairOrderDTO");
+        assertEquals(OrderState.CREATED, order.getState(), "Newly created order should have state CREATED");
+        assertEquals(1, registry.getAllOrders().size(), "Registry should contain exactly one order after creation");
     }
 
     /**
@@ -74,7 +74,7 @@ public class RepairControllerTest {
         controller.createRepairOrder(
                 "test", new PhoneNumber("0701234567"), new SerialNumber("1"));
         RepairOrderDTO accepted = controller.acceptRepair();
-        assertEquals(OrderState.ACCEPTED, accepted.getState());
+        assertEquals(OrderState.ACCEPTED, accepted.getState(), "acceptRepair should change the order state to ACCEPTED.");
     }
 
     /**
@@ -85,7 +85,7 @@ public class RepairControllerTest {
         controller.createRepairOrder(
                 "test", new PhoneNumber("0701234567"), new SerialNumber("1"));
         RepairOrderDTO rejected = controller.rejectRepair();
-        assertEquals(OrderState.REJECTED, rejected.getState());
+        assertEquals(OrderState.REJECTED, rejected.getState(), "rejectRepair should change the order state to REJECTED.");
     }
 
     /**
@@ -103,7 +103,7 @@ public class RepairControllerTest {
                 new DiagnosticResult("Test diag")
         );
 
-        assertEquals(1, order.getNumberOfDiagnostics());
+        assertEquals(1, order.getNumberOfDiagnostics(), "Order should have one diagnostic result after adding it.");
     }
 
     /**
@@ -121,7 +121,7 @@ public class RepairControllerTest {
                 new RepairTask("Task", "Desc", new Money(100))
         );
 
-        assertEquals(1, order.getNumberOfTasks());
+        assertEquals(1, order.getNumberOfTasks(), "Order should have one repair task after adding it.");
     }
 
 /**
@@ -131,7 +131,7 @@ public class RepairControllerTest {
     public void testUnknownPhoneThrowsCustomerNotFoundException() {
         assertThrows(CustomerNotFoundException.class, () -> {
             controller.findCustomer(new PhoneNumber("0000000000"));
-        });
+        },"Unknown phone numbers should throw CustomerNotFoundException.");
     }
 
     /**
@@ -141,7 +141,7 @@ public class RepairControllerTest {
     public void testDatabaseFailureThrowsDatabaseFailureException() {
         assertThrows(DatabaseFailureException.class, () -> {
             controller.findCustomer(new PhoneNumber("999999999"));
-        });
+        },"Database failure number should throw DatabaseFailureException.");
     }
 
     /**
@@ -154,7 +154,7 @@ public class RepairControllerTest {
         controller.addRepairTask(new RepairTask("T1", "Desc", new Money(200)));
         controller.addRepairTask(new RepairTask("T2", "Desc", new Money(300)));
         RepairOrderDTO order = controller.acceptRepair();
-        assertEquals(500, order.getTotalCost());
+        assertEquals(500, order.getTotalCost(), "Total cost should be 500 after adding two repair tasks.");
     }
     /**
      * Verifies that operations fail if no repair order exists.
@@ -163,7 +163,7 @@ public class RepairControllerTest {
     public void testAcceptRepairWithoutOrderThrowsException() {
         assertThrows(IllegalStateException.class, () -> {
             controller.acceptRepair();
-        });
+        }, "Operations without an active repair order should throw IllegalStateException.");
     }
 
     /**
@@ -189,6 +189,6 @@ public class RepairControllerTest {
 
         RepairOrderDTO order = controller.acceptRepair();
 
-        assertEquals(900, order.getTotalCost());
+        assertEquals(900, order.getTotalCost(), "Total cost should be 900 with loyal customer discount.");
     }
 }

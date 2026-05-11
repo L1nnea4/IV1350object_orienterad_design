@@ -24,7 +24,7 @@ public class RepairOrderRegistryTest {
     private RepairOrder order;
 
     /**
-     * Creates an singleton registry instance, clear orders and one sample repair order used by the tests.
+     * retrieves an singleton registry instance, clear stored orders and one sample repair order used by the tests.
      */
     @BeforeEach
     public void setUp() {
@@ -57,7 +57,7 @@ public class RepairOrderRegistryTest {
     @Test
     public void testSaveStoresOrder() {
         registry.save(order);
-        assertEquals(1, registry.getAllOrders().size());
+        assertEquals(1, registry.getAllOrders().size(),    "save should store exactly one repair order in the registry.");
     }
 
     /**
@@ -68,7 +68,7 @@ public class RepairOrderRegistryTest {
         registry.save(order);
         RepairOrderDTO found = registry.findById(order.getId());
 
-        assertNotNull(found);
-        assertEquals(order.getId().getValue(), found.getOrderId());
+        assertNotNull(found,    "findById should return a RepairOrderDTO for an existing order.");
+        assertEquals(order.getId().getValue(), found.getOrderId(),    "findById should return the repair order with the correct id.");
     }
 }
