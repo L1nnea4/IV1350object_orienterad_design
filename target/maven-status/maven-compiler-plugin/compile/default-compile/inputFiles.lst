@@ -3,8 +3,8 @@ C:\iv1350JAVAseminar3 - kopia\src\dto\CustomerDTO.java
 C:\iv1350JAVAseminar3 - kopia\src\dto\RepairOrderDTO.java
 C:\iv1350JAVAseminar3 - kopia\src\exception\CustomerNotFoundException.java
 C:\iv1350JAVAseminar3 - kopia\src\exception\DatabaseFailureException.java
-C:\iv1350JAVAseminar3 - kopia\src\exception\ExceptionLogger.java
 C:\iv1350JAVAseminar3 - kopia\src\integration\CustomerRegistry.java
+C:\iv1350JAVAseminar3 - kopia\src\integration\ExceptionLogger.java
 C:\iv1350JAVAseminar3 - kopia\src\integration\Printer.java
 C:\iv1350JAVAseminar3 - kopia\src\integration\RepairOrderLogger.java
 C:\iv1350JAVAseminar3 - kopia\src\integration\RepairOrderRegistry.java

@@ -8,7 +8,6 @@ import dto.RepairOrderDTO;
 public class TestObserver implements RepairOrderObserver {
 
     private int callCount = 0;
-
     /**
      * Called when a repair order is updated.
      *
@@ -18,7 +17,6 @@ public class TestObserver implements RepairOrderObserver {
     public void orderUpdated(RepairOrderDTO orderDTO) {
         callCount++;
     }
-
     /**
      * Returns how many times this observer has been notified.
      *

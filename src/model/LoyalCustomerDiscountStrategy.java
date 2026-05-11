@@ -2,7 +2,6 @@ package model;
 
 /**
  * A discount strategy that gives loyal customers a 10 percent discount.
- * This is applied when a customer has had three or more repairs.
  */
 public class LoyalCustomerDiscountStrategy implements DiscountStrategy {
     private static final double DISCOUNT_RATE = 0.10;

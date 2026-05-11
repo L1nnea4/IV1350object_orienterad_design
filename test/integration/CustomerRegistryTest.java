@@ -39,7 +39,7 @@ public class CustomerRegistryTest {
      */
     @Test
     public void testFindCustomerReturnsCustomer() throws CustomerNotFoundException {
-        Customer customer = registry.findCustomer(new PhoneNumber("123"));
+        Customer customer = registry.findCustomer(new PhoneNumber("0701234567"));
         assertNotNull(customer);
     }
 
@@ -62,4 +62,18 @@ public class CustomerRegistryTest {
             registry.findCustomer(new PhoneNumber("999999999"));
         });
     }
+/**
+ * Verifies that CustomerNotFoundException provides a not null error message.
+ */
+    @Test
+    public void testCustomerNotFoundExceptionMessage() {
+    CustomerNotFoundException exception =
+        assertThrows(CustomerNotFoundException.class, () -> {
+            registry.findCustomer(
+                new PhoneNumber("0000000000")
+            );
+        });
+
+    assertNotNull(exception.getMessage());
+}
 }

@@ -14,6 +14,7 @@ import integration.CustomerRegistry;
 import integration.Printer;
 import integration.RepairOrderRegistry;
 import model.DiagnosticResult;
+import model.LoyalCustomerDiscountStrategy;
 import model.Money;
 import model.OrderState;
 import model.PhoneNumber;
@@ -35,6 +36,7 @@ public class RepairControllerTest {
     @BeforeEach
     public void setUp() {
         registry = RepairOrderRegistry.getInstance();
+        registry.clear();
 
         controller = new RepairController(
                 new CustomerRegistry(),
@@ -153,5 +155,40 @@ public class RepairControllerTest {
         controller.addRepairTask(new RepairTask("T2", "Desc", new Money(300)));
         RepairOrderDTO order = controller.acceptRepair();
         assertEquals(500, order.getTotalCost());
+    }
+    /**
+     * Verifies that operations fail if no repair order exists.
+    */
+    @Test
+    public void testAcceptRepairWithoutOrderThrowsException() {
+        assertThrows(IllegalStateException.class, () -> {
+            controller.acceptRepair();
+        });
+    }
+
+    /**
+     * Verifies that loyal customer discount reduces the total cost.
+     */
+    @Test
+    public void testDiscountStrategyReducesTotalCost()
+            throws CustomerNotFoundException {
+
+        controller.createRepairOrder(
+                "test",
+                new PhoneNumber("0701234567"),
+                new SerialNumber("1")
+        );
+
+        controller.addRepairTask(
+                new RepairTask("Task", "Desc", new Money(1000))
+        );
+
+        controller.setDiscountStrategy(
+                new LoyalCustomerDiscountStrategy()
+        );
+
+        RepairOrderDTO order = controller.acceptRepair();
+
+        assertEquals(900, order.getTotalCost());
     }
 }

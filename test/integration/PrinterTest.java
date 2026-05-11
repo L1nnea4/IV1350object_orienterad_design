@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import dto.RepairOrderDTO;
+import model.Bike;
 import model.Customer;
 import model.OrderId;
 import model.PhoneNumber;
@@ -26,12 +27,14 @@ public class PrinterTest {
     public void setUp() {
         printer = new Printer();
 
+        Bike bike = new Bike("Brand", "Model", new SerialNumber("1"));
+
+        Customer customer = new Customer("Test", "a@b.com", new PhoneNumber("1"));
         order = new RepairOrder(
             new OrderId(),
             "Problem",
-            new PhoneNumber("1"),
-            new SerialNumber("1"),
-            new Customer("Test", "a@b.com", new PhoneNumber("1"))
+            customer,
+            bike
         );
     }
 

@@ -4,7 +4,7 @@ import controller.RepairController;
 import dto.RepairOrderDTO;
 import exception.CustomerNotFoundException;
 import exception.DatabaseFailureException;
-import exception.ExceptionLogger;
+import integration.ExceptionLogger;
 import integration.RepairOrderLogger;
 import model.DiagnosticResult;
 import model.LoyalCustomerDiscountStrategy;
@@ -69,7 +69,9 @@ public class View {
             order = contr.acceptRepair();
             System.out.println("Accepted order total: " + order.getTotalCost() + " SEK");
         } catch (CustomerNotFoundException e) {
-            System.out.println("ERROR: " + e.getMessage());
+            System.out.println( "Could not find a customer with that phone number.");
+        }catch (IllegalStateException e) {
+            System.out.println("Operation could not be completed.");
         }
     }
 
@@ -78,7 +80,7 @@ public class View {
         try {
             contr.findCustomer(unknownPhone);
         } catch (CustomerNotFoundException e) {
-            System.out.println("Could not find customer: " + e.getMessage());
+            System.out.println( "Could not find a customer with that phone number.");
         }
     }
 
@@ -87,9 +89,9 @@ public class View {
         try {
             contr.findCustomer(badPhone);
         } catch (CustomerNotFoundException e) {
-            System.out.println("Could not find customer: " + e.getMessage());
+            System.out.println( "Could not find a customer with that phone number.");
         } catch (DatabaseFailureException e) {
-            exceptionLogger.log(e);
+            exceptionLogger.logException(e);
             System.out.println("The system is temporarily unavailable, please try again later.");
         }
     }
@@ -104,7 +106,9 @@ public class View {
             RepairOrderDTO order = contr.acceptRepair();
             System.out.println("Order total with loyal customer discount: " + order.getTotalCost() + " SEK");
         } catch (CustomerNotFoundException e) {
-            System.out.println("ERROR: " + e.getMessage());
-    }
+            System.out.println( "Could not find a customer with that phone number.");
+    } catch (IllegalStateException e) {
+            System.out.println("Operation could not be completed.");
+        }
 }
 }

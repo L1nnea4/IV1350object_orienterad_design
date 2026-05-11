@@ -1,4 +1,4 @@
-package exception;
+package integration;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -16,7 +16,7 @@ public class ExceptionLogger {
      *
      * @param e The exception to log.
      */
-    public void log(Exception e) {
+    public void logException(Exception e) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(LOG_FILE, true))) {
             writer.println("[" + LocalDateTime.now() + "] " + e.getMessage());
             e.printStackTrace(writer);

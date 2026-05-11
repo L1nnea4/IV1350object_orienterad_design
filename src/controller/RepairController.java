@@ -6,6 +6,7 @@ import exception.CustomerNotFoundException;
 import integration.CustomerRegistry;
 import integration.Printer;
 import integration.RepairOrderRegistry;
+import model.Bike;
 import model.Customer;
 import model.DiagnosticResult;
 import model.DiscountStrategy;
@@ -68,7 +69,8 @@ public class RepairController {
     public RepairOrderDTO createRepairOrder(String problem, PhoneNumber phone, SerialNumber serial,
                                             RepairOrderObserver... observers) throws CustomerNotFoundException {
         Customer customer = customerRegistry.findCustomer(phone);
-        currentOrder = new RepairOrder(new OrderId(), problem, phone, serial, customer);
+        Bike bike = new Bike("Brand", "Model", serial);
+        currentOrder = new RepairOrder(new OrderId(), problem, customer, bike);
         for (RepairOrderObserver obs : observers) {
             currentOrder.addObserver(obs);
         }
@@ -83,6 +85,7 @@ public class RepairController {
      * @return Updated order as DTO.
      */
     public RepairOrderDTO addDiagnosticResult(DiagnosticResult result) {
+        checkCurrentOrder();
         currentOrder.addDiagnosticResult(result);
         return new RepairOrderDTO(currentOrder);
     }
@@ -94,6 +97,7 @@ public class RepairController {
      * @return Updated order as DTO.
      */
     public RepairOrderDTO addRepairTask(RepairTask task) {
+        checkCurrentOrder();
         currentOrder.addRepairTask(task);
         return new RepairOrderDTO(currentOrder);
     }
@@ -104,6 +108,7 @@ public class RepairController {
      * @return The accepted order as DTO.
      */
     public RepairOrderDTO acceptRepair() {
+        checkCurrentOrder();
         currentOrder.accept();
         RepairOrderDTO dto = new RepairOrderDTO(currentOrder);
         printer.printReceipt(dto);
@@ -116,6 +121,7 @@ public class RepairController {
      * @return The rejected order as DTO.
      */
     public RepairOrderDTO rejectRepair() {
+        checkCurrentOrder();
         currentOrder.reject();
         return new RepairOrderDTO(currentOrder);
     }
@@ -126,8 +132,12 @@ public class RepairController {
      * @param strategy The discount strategy to apply.
      */
     public void setDiscountStrategy(DiscountStrategy strategy) {
+        checkCurrentOrder();
         currentOrder.setDiscountStrategy(strategy);
     }
+
+
+    
 
     /**
      * Finds an order by its id.
@@ -138,4 +148,17 @@ public class RepairController {
     public RepairOrderDTO findOrder(OrderId id) {
         return orderRegistry.findById(id);
     }
+    /**
+     * Checks that a repair order currently exists.
+     *
+     * @throws IllegalStateException if no repair order has been created.
+     */
+    private void checkCurrentOrder() {
+        if (currentOrder == null) {
+            throw new IllegalStateException(
+                "No repair order exists."
+            );
+        }
+    }
+
 }

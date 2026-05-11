@@ -27,7 +27,7 @@ public class DiscountStrategyTest {
     }
 
     /**
-     * Verifies that loyal discount on 300 gives 270.
+     * Verifies that loyal discount on 300 gives 270, so test it applies the 10 percent discount correctly.
      */
     @Test
     public void testLoyalCustomerDiscountOnThreeHundred() {

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import dto.RepairOrderDTO;
+import model.Bike;
 import model.Customer;
 import model.OrderId;
 import model.PhoneNumber;
@@ -23,17 +24,21 @@ public class RepairOrderRegistryTest {
     private RepairOrder order;
 
     /**
-     * Creates an empty registry and one sample repair order used by the tests.
+     * Creates an singleton registry instance, clear orders and one sample repair order used by the tests.
      */
     @BeforeEach
     public void setUp() {
         registry = RepairOrderRegistry.getInstance();
+        registry.clear();
+
+        Bike bike = new Bike("Brand", "Model", new SerialNumber("1"));
+
+        Customer customer = new Customer("Test", "a@b.com", new PhoneNumber("1"));
         order = new RepairOrder(
             new OrderId(),
             "Problem",
-            new PhoneNumber("1"),
-            new SerialNumber("1"),
-            new Customer("Test", "a@b.com", new PhoneNumber("1"))
+            customer,
+            bike
         );
     }
 

@@ -25,16 +25,15 @@ public class RepairOrder {
      *
      * @param id The order id.
      * @param problem The reported customer problem.
-     * @param phone The customer phone number.
-     * @param serial The bike serial number.
      * @param customer The customer that owns the bike.
+     * @param bike The bike associated with the repair order.
      */
-    public RepairOrder(OrderId id, String problem, PhoneNumber phone,
-                       SerialNumber serial, Customer customer) {
+    public RepairOrder(OrderId id, String problem,
+                        Customer customer, Bike bike) {
         this.id = id;
         this.problem = problem;
         this.customer = customer;
-        this.bike = new Bike("Brand", "Model", serial);
+        this.bike = bike;
         this.state = OrderState.CREATED;
         this.discountStrategy = new NoDiscountStrategy();
     }
@@ -204,7 +203,7 @@ public class RepairOrder {
     @Override
     public String toString() {
         return "Order " + id + " customer: " + customer + " bike: " + bike
-                + " problem: " + problem + " state: " + state;
+                + " problem: " + problem + " state: " + state + " diagnostics: " + diagnostics + " tasks: " + tasks + " total cost: " + getTotalCost() + " SEK";
     }
 
     private void notifyObservers() {

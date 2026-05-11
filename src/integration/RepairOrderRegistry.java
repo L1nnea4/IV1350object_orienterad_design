@@ -15,6 +15,9 @@ public class RepairOrderRegistry {
     private static RepairOrderRegistry instance;
     private final List<RepairOrderDTO> orders = new ArrayList<>();
 
+    private RepairOrderRegistry() {
+        // Private constructor to prevent instantiation from outside the class.
+    }
     /**
      * Returns the only instance of this class.
      *
@@ -51,6 +54,13 @@ public class RepairOrderRegistry {
     return null;
 }
 
+    /**
+     * Removes all stored orders.
+     * Used only by unit tests.
+     */
+    public void clear() {
+        orders.clear();
+    }
     /**
      * Returns all stored repair order DTOs.
      *

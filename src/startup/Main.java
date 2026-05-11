@@ -19,7 +19,7 @@ public class Main {
      */
     public static void main(String[] args) {
         CustomerRegistry customerRegistry = new CustomerRegistry();
-        RepairOrderRegistry orderRegistry = new RepairOrderRegistry();
+        RepairOrderRegistry orderRegistry = RepairOrderRegistry.getInstance();
         Printer printer = new Printer();
         RepairController controller = new RepairController(customerRegistry, orderRegistry, printer);
         View view = new View(controller);

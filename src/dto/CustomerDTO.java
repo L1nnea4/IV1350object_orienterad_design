@@ -30,6 +30,23 @@ public class CustomerDTO {
     public String getName() {
         return name;
     }
+    /**
+     * Returns the customer email.
+     *
+     * @return Customer email.
+     */
+    public String getEmail() {
+        return email;   
+    }
+        /**
+        * Returns the customer phone number.
+        *
+        * @return Customer phone number.
+        */
+    public String getPhone() {
+        return phone;
+    }
+
 
     /**
      * Returns a text representation of the customer.

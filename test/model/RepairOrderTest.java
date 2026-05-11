@@ -13,16 +13,18 @@ public class RepairOrderTest {
     private RepairOrder order;
 
     /**
-     * creates a fresh RepairOrder object before each test so tests do not share state
+     * Creates a fresh RepairOrder object before each test so tests do not share state
      */
     @BeforeEach
     public void setUp() {
+
+        Bike bike = new Bike("Brand", "Model", new SerialNumber("ABC"));
+        Customer customer = new Customer("Test", "a@b.com", new PhoneNumber("123"));
         order = new RepairOrder(
             new OrderId(),
             "Problem",
-            new PhoneNumber("123"),
-            new SerialNumber("ABC"),
-            new Customer("Test", "a@b.com", new PhoneNumber("123"))
+            customer,
+            bike
         );
     }
 
@@ -62,7 +64,7 @@ public class RepairOrderTest {
     }
 
     /**
-     *Checks that adding one repair task increases the task count to one.
+     * Checks that adding one repair task increases the task count to one.
      */
     @Test
     public void testAddRepairTask() {
@@ -78,6 +80,13 @@ public class RepairOrderTest {
         order.addRepairTask(new RepairTask("Task2", "Desc", new Money(200)));
 
         assertEquals(2, order.getNumberOfTasks());
+    }
+    /**
+    * Verifies that a new repair order has total cost zero.
+    */
+    @Test
+    public void testEmptyOrderHasZeroTotalCost() {
+        assertEquals(0, order.getTotalCost());
     }
 
     /**
@@ -108,6 +117,27 @@ public class RepairOrderTest {
         TestObserver observer = new TestObserver();
         order.addObserver(observer);
         order.addRepairTask(new RepairTask("Task", "Desc", new Money(100)));
+        assertEquals(1, observer.getCallCount());
+    }
+    /**
+    * Verifies that an observer is notified when the order is accepted.
+    */
+    @Test
+    public void testObserverIsNotifiedOnAccept() {
+        TestObserver observer = new TestObserver();
+        order.addObserver(observer);
+        order.accept();
+        assertEquals(1, observer.getCallCount());
+    }
+    /**
+    * Verifies that an observer is notified when a diagnostic result is added.
+    */
+    @Test
+    public void testObserverIsNotifiedOnDiagnostic() {
+        TestObserver observer = new TestObserver();
+        order.addObserver(observer);
+        order.addDiagnosticResult(
+            new DiagnosticResult("Flat tire"));
         assertEquals(1, observer.getCallCount());
     }
 
