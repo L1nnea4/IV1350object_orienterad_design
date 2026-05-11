@@ -6,3 +6,35 @@ integration.DatabaseFailureException: Database failure when searching for phone 
 	at view.View.runFakeExecution(View.java:46)
 	at startup.Main.main(Main.java:26)
 
+[2026-05-11T21:03:17.808049900] Database failure when searching for phone number: 999999999
+exception.DatabaseFailureException: Database failure when searching for phone number: 999999999
+	at integration.CustomerRegistry.findCustomer(CustomerRegistry.java:27)
+	at controller.RepairController.findCustomer(RepairController.java:55)
+	at view.View.runDatabaseFailureFlow(View.java:90)
+	at view.View.runFakeExecution(View.java:47)
+	at startup.Main.main(Main.java:26)
+
+[2026-05-11T21:17:59.612910900] Database failure when searching for phone number: 999999999
+exception.DatabaseFailureException: Database failure when searching for phone number: 999999999
+	at integration.CustomerRegistry.findCustomer(CustomerRegistry.java:27)
+	at controller.RepairController.findCustomer(RepairController.java:55)
+	at view.View.runDatabaseFailureFlow(View.java:90)
+	at view.View.runFakeExecution(View.java:47)
+	at startup.Main.main(Main.java:26)
+
+[2026-05-11T21:25:06.410675300] Database failure when searching for phone number: 999999999
+exception.DatabaseFailureException: Database failure when searching for phone number: 999999999
+	at integration.CustomerRegistry.findCustomer(CustomerRegistry.java:27)
+	at controller.RepairController.findCustomer(RepairController.java:55)
+	at view.View.runDatabaseFailureFlow(View.java:90)
+	at view.View.runFakeExecution(View.java:47)
+	at startup.Main.main(Main.java:26)
+
+[2026-05-11T21:25:14.555966400] Database failure when searching for phone number: 999999999
+exception.DatabaseFailureException: Database failure when searching for phone number: 999999999
+	at integration.CustomerRegistry.findCustomer(CustomerRegistry.java:27)
+	at controller.RepairController.findCustomer(RepairController.java:55)
+	at view.View.runDatabaseFailureFlow(View.java:90)
+	at view.View.runFakeExecution(View.java:47)
+	at startup.Main.main(Main.java:26)
+

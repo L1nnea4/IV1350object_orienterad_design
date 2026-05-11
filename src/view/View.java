@@ -101,6 +101,7 @@ public class View {
         SerialNumber serial = new SerialNumber("BIKE456");
         try {
             contr.createRepairOrder("Flat tire", phone, serial, orderView, orderLogger);
+            contr.addDiagnosticResult(new DiagnosticResult("Rear tire puncture"));
             contr.addRepairTask(new RepairTask("Replace tire", "New rear tire", new Money(300)));
             contr.setDiscountStrategy(new LoyalCustomerDiscountStrategy());
             RepairOrderDTO order = contr.acceptRepair();

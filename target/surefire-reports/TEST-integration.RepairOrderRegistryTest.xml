@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="integration.RepairOrderRegistryTest" time="0.09" tests="2" errors="0" skipped="0" failures="1">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="integration.RepairOrderRegistryTest" time="0.075" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="user.country" value="SE"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Eclipse Adoptium\jdk-17.0.13.11-hotspot\bin"/>
-    <property name="sun.java.command" value="C:\Users\linne\AppData\Local\Temp\surefire4417920601798860737\surefirebooter-20260510193940205_3.jar C:\Users\linne\AppData\Local\Temp\surefire4417920601798860737 2026-05-10T19-39-40_039-jvmRun1 surefire-20260510193940205_1tmp surefire_0-20260510193940205_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\linne\AppData\Local\Temp\surefire10421153017780719605\surefirebooter-20260511212947371_3.jar C:\Users\linne\AppData\Local\Temp\surefire10421153017780719605 2026-05-11T21-29-47_200-jvmRun1 surefire-20260511212947371_1tmp surefire_0-20260511212947371_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="test" value="integration.RepairOrderRegistryTest"/>
     <property name="surefire.test.class.path" value="C:\iv1350JAVAseminar3 - kopia\target\test-classes;C:\iv1350JAVAseminar3 - kopia\target\classes;C:\Users\linne\.m2\repository\org\junit\jupiter\junit-jupiter\5.10.2\junit-jupiter-5.10.2.jar;C:\Users\linne\.m2\repository\org\junit\jupiter\junit-jupiter-api\5.10.2\junit-jupiter-api-5.10.2.jar;C:\Users\linne\.m2\repository\org\opentest4j\opentest4j\1.3.0\opentest4j-1.3.0.jar;C:\Users\linne\.m2\repository\org\junit\platform\junit-platform-commons\1.10.2\junit-platform-commons-1.10.2.jar;C:\Users\linne\.m2\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar;C:\Users\linne\.m2\repository\org\junit\jupiter\junit-jupiter-params\5.10.2\junit-jupiter-params-5.10.2.jar;C:\Users\linne\.m2\repository\org\junit\jupiter\junit-jupiter-engine\5.10.2\junit-jupiter-engine-5.10.2.jar;C:\Users\linne\.m2\repository\org\junit\platform\junit-platform-engine\1.10.2\junit-platform-engine-1.10.2.jar;"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\linne\AppData\Local\Temp\surefire4417920601798860737\surefirebooter-20260510193940205_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\linne\AppData\Local\Temp\surefire10421153017780719605\surefirebooter-20260511212947371_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.13+11"/>
@@ -60,19 +60,6 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testFindByIdReturnsOrder" classname="integration.RepairOrderRegistryTest" time="0.039"/>
-  <testcase name="testSaveStoresOrder" classname="integration.RepairOrderRegistryTest" time="0.015">
-    <failure message="expected: &lt;1&gt; but was: &lt;2&gt;" type="org.opentest4j.AssertionFailedError"><![CDATA[org.opentest4j.AssertionFailedError: expected: <1> but was: <2>
-	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
-	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
-	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
-	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:145)
-	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:531)
-	at integration.RepairOrderRegistryTest.testSaveStoresOrder(RepairOrderRegistryTest.java:55)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-]]></failure>
-  </testcase>
+  <testcase name="testFindByIdReturnsOrder" classname="integration.RepairOrderRegistryTest" time="0.035"/>
+  <testcase name="testSaveStoresOrder" classname="integration.RepairOrderRegistryTest" time="0.001"/>
 </testsuite>
