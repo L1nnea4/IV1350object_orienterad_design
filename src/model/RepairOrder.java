@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Represents a repair order.
  */
@@ -92,6 +93,70 @@ public class RepairOrder {
     */
     public OrderId getId() {
         return id;
+    }
+
+    /**
+    * Returns the total cost of all repair tasks in this order.
+    *
+    * @return Total cost in SEK.
+    */
+    public int getTotalCost() {
+        int total = 0;
+        for (RepairTask task : tasks) {
+            total += task.getCost();
+        }
+        return total;
+    }
+    /**
+     * Returns the reported problem for this order.
+     *
+     * @return The customer reported problem.
+     */
+    public String getProblem() {
+        return problem;
+    }
+
+    /**
+     * Returns the name of the customer that owns the bike in this order.
+     *
+     * @return The customer name.
+     */
+    public String getCustomerName() {
+        return customer.getName();
+    }
+    /**
+     * Returns a text description of the bike in this order.
+     * @return The bike details as text.
+     */
+    public String getBikeInfo() {
+        return bike.toString();
+    }
+
+    /**
+    * Returns a list of text descriptions of the repair tasks in this order.
+    * @return List of repair task descriptions.
+    */
+    public List<String> getTaskDescriptions() {
+        List<String> result = new ArrayList<>();
+
+        for (RepairTask task : tasks) {
+        result.add(task.toString());
+        }
+         return result;
+    }
+
+    /**
+     * Returns a list of text descriptions of the diagnostic results in this order.
+     *
+     * @return List of diagnostic result descriptions.
+     */
+    public List<String> getDiagnosticDescriptions() {
+        List<String> result = new ArrayList<>();
+
+        for (DiagnosticResult diagnostic : diagnostics) {
+            result.add(diagnostic.toString());
+        }
+        return result;
     }
 
     /**

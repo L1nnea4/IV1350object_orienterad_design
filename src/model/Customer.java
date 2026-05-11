@@ -22,6 +22,31 @@ public class Customer {
     }
 
     /**
+     * Returns the customer name.
+     *
+     * @return Customer name.
+     */
+    public String getName() {
+        return name;
+    }
+    /**
+     * Returns the customer email.
+     *
+     * @return Customer email.
+     */
+    public String getEmail() {
+        return email;
+    }
+    /**
+     * Returns the customer phone number.
+     *
+     * @return Customer phone number.
+     */
+    public String getPhone() {
+        return phone.toString();
+    }
+
+    /**
      * Returns customer as text.
      *
      * @return Text form of customer.

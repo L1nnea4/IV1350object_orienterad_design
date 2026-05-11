@@ -15,6 +15,15 @@ public class Money {
         this.amount = amount;
     }
 
+    /**
+     * Returns the amount value.
+     *
+     * @return Amount in SEK.
+     */
+    public int getAmount() {
+        return amount;
+    }
+
 
     /**
      * Returns amount as text.

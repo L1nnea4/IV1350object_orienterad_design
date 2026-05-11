@@ -22,6 +22,16 @@ public class RepairTask {
     }
 
     /**
+     * Returns the cost of this repair task.
+     *
+     * @return Cost in SEK.
+     */
+    public int getCost() {
+        return cost.getAmount();
+    }
+
+
+    /**
      * Returns task as text.
      *
      * @return Text form of repair task.

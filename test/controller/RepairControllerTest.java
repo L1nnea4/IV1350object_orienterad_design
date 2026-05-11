@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import dto.RepairOrderDTO;
 import integration.CustomerRegistry;
 import integration.Printer;
 import integration.RepairOrderRegistry;
@@ -13,10 +14,8 @@ import model.DiagnosticResult;
 import model.Money;
 import model.OrderState;
 import model.PhoneNumber;
-import model.RepairOrder;
 import model.RepairTask;
 import model.SerialNumber;
-
 /**
  * Tests the RepairController class.
  */
@@ -53,7 +52,7 @@ public class RepairControllerTest {
      */
     @Test
     public void testCreateOrder() {
-        RepairOrder order = controller.createRepairOrder(
+        RepairOrderDTO order = controller.createRepairOrder(
                 "test",
                 new PhoneNumber("1"),
                 new SerialNumber("1")
@@ -75,7 +74,7 @@ public class RepairControllerTest {
                 new SerialNumber("1")
         );
 
-        RepairOrder acceptedOrder = controller.acceptRepair();
+        RepairOrderDTO acceptedOrder = controller.acceptRepair();
 
         assertEquals(OrderState.ACCEPTED, acceptedOrder.getState());
     }
@@ -91,7 +90,7 @@ public class RepairControllerTest {
                 new SerialNumber("1")
         );
 
-        RepairOrder order = controller.addDiagnosticResult(
+        RepairOrderDTO order = controller.addDiagnosticResult(
                 new DiagnosticResult("Test diag")
         );
 
@@ -109,7 +108,7 @@ public class RepairControllerTest {
                 new SerialNumber("1")
         );
 
-        RepairOrder order = controller.addRepairTask(
+        RepairOrderDTO order = controller.addRepairTask(
                 new RepairTask("Task", "Desc", new Money(100))
         );
 

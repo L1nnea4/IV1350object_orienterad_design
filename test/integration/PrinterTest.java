@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import dto.RepairOrderDTO;
 import model.Customer;
 import model.OrderId;
 import model.PhoneNumber;
@@ -48,6 +49,6 @@ public class PrinterTest {
      */
     @Test
     public void testPrintReceiptDoesNotCrash() {
-        printer.printReceipt(order);
+        printer.printReceipt(new RepairOrderDTO(order));
     }
 }

@@ -1,6 +1,6 @@
 package integration;
 
-import model.RepairOrder;
+import dto.RepairOrderDTO;
 
 /**
  * Prints information to standard output.
@@ -11,7 +11,7 @@ public class Printer {
      *
      * @param order The order to print.
      */
-    public void printReceipt(RepairOrder order) {
+    public void printReceipt(RepairOrderDTO order) {
         System.out.println("=== RECEIPT ===");
         System.out.println(order);
     }

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import dto.RepairOrderDTO;
 import model.Customer;
 import model.OrderId;
 import model.PhoneNumber;
@@ -50,7 +51,7 @@ public class RepairOrderRegistryTest {
      */
     @Test
     public void testSaveStoresOrder() {
-        registry.save(order);
+        registry.save(new RepairOrderDTO(order));
         assertEquals(1, registry.getAllOrders().size());
     }
 
@@ -59,10 +60,10 @@ public class RepairOrderRegistryTest {
      */
     @Test
     public void testFindByIdReturnsOrder() {
-        registry.save(order);
-        RepairOrder found = registry.findById(order.getId());
+        registry.save(new RepairOrderDTO(order));
+        RepairOrderDTO found = registry.findById(order.getId());
 
         assertNotNull(found);
-        assertEquals(order.getId(), found.getId());
+        assertEquals(order.getId().getValue(), found.getOrderId());
     }
 }

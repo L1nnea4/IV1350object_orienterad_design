@@ -3,21 +3,21 @@ package integration;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.RepairOrderDTO;
 import model.OrderId;
-import model.RepairOrder;
 
 /**
  * Stores repair orders in memory.
  */
 public class RepairOrderRegistry {
-    private final List<RepairOrder> orders = new ArrayList<>();
+    private final List<RepairOrderDTO> orders = new ArrayList<>();
 
     /**
-     * Saves one repair order.
+     * Saves a snapshot of the given repair order as a DTO.
      *
      * @param order The order to store.
      */
-    public void save(RepairOrder order) {
+    public void save(RepairOrderDTO order) {
         orders.add(order);
     }
 
@@ -25,11 +25,11 @@ public class RepairOrderRegistry {
      * Finds one order by id.
      *
      * @param id The id to search for.
-     * @return The order with the given id, or null if not found.
+     * @return The matching order DTO, or null if not found.
      */
-public RepairOrder findById(OrderId id) {
-    for (RepairOrder order : orders) {
-        if (order.getId().getValue() == id.getValue()) {
+public RepairOrderDTO findById(OrderId id) {
+    for (RepairOrderDTO order : orders) {
+        if (order.getOrderId() == id.getValue()) {
             return order;
         }
     }
@@ -39,9 +39,9 @@ public RepairOrder findById(OrderId id) {
     /**
      * Returns all stored repair orders.
      *
-     * @return A copy of all stored orders.
+     * @return A copy of all stored order DTOs.
      */
-    public List<RepairOrder> getAllOrders() {
+    public List<RepairOrderDTO> getAllOrders() {
         return new ArrayList<>(orders);
     }
 }
