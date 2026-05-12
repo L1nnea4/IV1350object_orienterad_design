@@ -1,6 +1,9 @@
 C:\iv1350JAVAseminar3 - kopia\test\controller\RepairControllerTest.java
+C:\iv1350JAVAseminar3 - kopia\test\exception\OperationFailedExceptionTest.java
 C:\iv1350JAVAseminar3 - kopia\test\integration\CustomerRegistryTest.java
+C:\iv1350JAVAseminar3 - kopia\test\integration\LogHandlerTest.java
 C:\iv1350JAVAseminar3 - kopia\test\integration\PrinterTest.java
+C:\iv1350JAVAseminar3 - kopia\test\integration\RepairOrderLoggerTest.java
 C:\iv1350JAVAseminar3 - kopia\test\integration\RepairOrderRegistryTest.java
 C:\iv1350JAVAseminar3 - kopia\test\integration\SingletonTest.java
 C:\iv1350JAVAseminar3 - kopia\test\model\DiscountStrategyTest.java
