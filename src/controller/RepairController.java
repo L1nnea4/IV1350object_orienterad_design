@@ -57,8 +57,9 @@ public class RepairController {
     public RepairOrderDTO createRepairOrder(String problem, PhoneNumber phone, SerialNumber serial) {
         Customer customer = customerRegistry.findCustomer(phone);
         currentOrder = new RepairOrder(new OrderId(), problem, phone, serial, customer);
-        orderRegistry.save(new RepairOrderDTO(currentOrder));
-        return new RepairOrderDTO(currentOrder);
+        RepairOrderDTO dto = new RepairOrderDTO(currentOrder);
+        orderRegistry.save(dto);
+        return dto;
     }
 
     /**
