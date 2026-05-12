@@ -32,7 +32,7 @@ public class LogHandler {
      * @param msg The message to log.
      */
     public void logMessage(String msg) {
-        logFile.println(msg);
+        logFile.println(createTime() + ", Message: " + msg);
         logFile.flush();
     }
 
