@@ -14,6 +14,16 @@ public class OrderId {
         this.id = ++counter;
     }
     /**
+     * Creates an order id with a specific value.
+     * Used when searching for existing repair orders.
+     *
+     * @param id The order id value.
+     */
+    public OrderId(int id) {
+        this.id = id;
+    }
+
+    /**
      * Returns the id value.
      *
      * @return The id value.

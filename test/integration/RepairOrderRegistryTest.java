@@ -3,6 +3,7 @@ package integration;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -66,4 +67,19 @@ public class RepairOrderRegistryTest {
         assertNotNull(found);
         assertEquals(order.getId().getValue(), found.getOrderId());
     }
+
+    /**
+ * Verifies that findById returns null when the order does not exist.
+ */
+@Test
+public void testFindByIdReturnsNullWhenOrderDoesNotExist() {
+
+    RepairOrderDTO found =
+            registry.findById(new OrderId());
+
+    assertNull(
+            found,
+            "Expected null when searching for unknown order."
+    );
+}
 }

@@ -12,6 +12,7 @@ import integration.Printer;
 import integration.RepairOrderRegistry;
 import model.DiagnosticResult;
 import model.Money;
+import model.OrderId;
 import model.OrderState;
 import model.PhoneNumber;
 import model.RepairTask;
@@ -114,4 +115,32 @@ public class RepairControllerTest {
 
         assertEquals(1, order.getNumberOfTasks());
     }
+
+    /**
+ * Verifies that findRepairOrder returns the correct order.
+ */
+@Test
+public void testFindRepairOrderReturnsCorrectOrder() {
+    RepairOrderDTO created = controller.createRepairOrder(
+            "test",
+            new PhoneNumber("0701234567"),
+            new SerialNumber("1")
+    );
+
+    RepairOrderDTO found =
+            controller.findRepairOrder(
+                    new OrderId(created.getOrderId())
+            );
+
+    assertNotNull(
+            found,
+            "Expected search to return a repair order."
+    );
+
+    assertEquals(
+            created.getOrderId(),
+            found.getOrderId(),
+            "Expected found order to have the same id."
+    );
+}
 }
