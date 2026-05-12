@@ -3,10 +3,12 @@ package integration;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import dto.RepairOrderDTO;
+import exception.RepairOrderNotFoundException;
 import model.Bike;
 import model.Customer;
 import model.OrderId;
@@ -64,11 +66,46 @@ public class RepairOrderRegistryTest {
      * Verifies that findById returns the correct order.
      */
     @Test
-    public void testFindByIdReturnsOrder() {
+    public void testFindByIdReturnsOrder() throws RepairOrderNotFoundException {
         registry.save(order);
         RepairOrderDTO found = registry.findById(order.getId());
 
         assertNotNull(found,    "findById should return a RepairOrderDTO for an existing order.");
         assertEquals(order.getId().getValue(), found.getOrderId(),    "findById should return the repair order with the correct id.");
+    }
+
+    /**
+     * Verifies that findById throws exception when order does not exist.
+     */
+    @Test
+    public void testFindByIdThrowsExceptionWhenOrderMissing() {
+        assertThrows(
+                RepairOrderNotFoundException.class,
+                () -> registry.findById(new OrderId()));
+    }
+
+    /**
+     * Verifies that registry state does not change when exception is thrown.
+     */
+    @Test
+    public void testStateNotChangedWhenExceptionThrown() {
+        int before = registry.getAllOrders().size();
+        try {
+            registry.findById(new OrderId());
+        } catch (RepairOrderNotFoundException exc) {
+            // expected exception
+        }
+        int after = registry.getAllOrders().size();
+        assertEquals(before, after,    "Registry state should not change when findById throws RepairOrderNotFoundException.");
+    }
+
+    /**
+     * Verifies that RepairOrderNotFoundException
+     * contains an informative message.
+     */
+    @Test
+    public void testRepairOrderNotFoundExceptionMessage() {
+        RepairOrderNotFoundException exc =assertThrows(RepairOrderNotFoundException.class,() -> registry.findById(new OrderId()) );
+        assertNotNull(exc.getMessage(),"Exception should contain error message.");
     }
 }

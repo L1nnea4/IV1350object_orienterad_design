@@ -13,6 +13,16 @@ public class OrderId {
     public OrderId() {
         this.id = ++counter;
     }
+
+    /**
+ * Creates an order id with a specific value.
+ * Used mainly when reconstructing ids from DTOs.
+ *
+ * @param id The id value.
+ */
+public OrderId(int id) {
+    this.id = id;
+}
     /**
      * Returns the id value.
      *

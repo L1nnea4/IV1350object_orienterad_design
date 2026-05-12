@@ -4,7 +4,7 @@ import controller.RepairController;
 import dto.RepairOrderDTO;
 import exception.CustomerNotFoundException;
 import exception.DatabaseFailureException;
-import integration.ExceptionLogger;
+import integration.LogHandler;
 import integration.RepairOrderLogger;
 import model.DiagnosticResult;
 import model.LoyalCustomerDiscountStrategy;
@@ -19,10 +19,11 @@ import model.SerialNumber;
 */
 public class View {
     private final RepairController contr;
-    private final ExceptionLogger exceptionLogger = new ExceptionLogger();
+    //private final ExceptionLogger exceptionLogger = new ExceptionLogger();
     private final RepairOrderView orderView = new RepairOrderView();
     private final RepairOrderLogger orderLogger = new RepairOrderLogger();
-
+    private final LogHandler logger = new LogHandler();
+    private final ErrorMessageHandler errorHandler = new ErrorMessageHandler();
     /**
      * Creates a new view.
      *
@@ -37,6 +38,7 @@ public class View {
      * successful flow, unknown customer, database failure, and discount.
     */
     public void runFakeExecution() {
+        
         System.out.println("=== SCENARIO 1: SUCCESSFUL REPAIR ===");
         runSuccessfulFlow();
 
@@ -48,8 +50,11 @@ public class View {
 
         System.out.println("\n=== SCENARIO 4: LOYAL CUSTOMER DISCOUNT ===");
         runDiscountFlow();
-    }
-
+        }  
+    
+    /**
+     * Simulates a successful repair flow.
+     */
     private void runSuccessfulFlow() {
         PhoneNumber phone = new PhoneNumber("0701234567");
         SerialNumber serial = new SerialNumber("BIKE123");
@@ -69,33 +74,41 @@ public class View {
             order = contr.acceptRepair();
             System.out.println("Accepted order total: " + order.getTotalCost() + " SEK");
         } catch (CustomerNotFoundException e) {
-            System.out.println( "Could not find a customer with that phone number.");
-        }catch (IllegalStateException e) {
-            System.out.println("Operation could not be completed.");
+            errorHandler.showErrorMsg("Could not find a customer with that phone number.");
+        } catch (IllegalStateException exc) {
+            errorHandler.showErrorMsg("Operation could not be completed.");
+            logger.logException(exc);   
         }
     }
-
+    /**
+     * Simulates searching for an unknown customer.
+     * CustomerNotFoundException business rule violation so no need for logging
+     */
     private void runUnknownCustomerFlow() {
         PhoneNumber unknownPhone = new PhoneNumber("0000000000");
         try {
             contr.findCustomer(unknownPhone);
-        } catch (CustomerNotFoundException e) {
-            System.out.println( "Could not find a customer with that phone number.");
+        } catch (CustomerNotFoundException exc) {
+            errorHandler.showErrorMsg("Could not find a customer with that phone number.");
         }
     }
-
+    /**
+     * Simulates a database failure.
+     */
     private void runDatabaseFailureFlow() {
         PhoneNumber badPhone = new PhoneNumber("999999999");
         try {
             contr.findCustomer(badPhone);
-        } catch (CustomerNotFoundException e) {
-            System.out.println( "Could not find a customer with that phone number.");
-        } catch (DatabaseFailureException e) {
-            exceptionLogger.logException(e);
-            System.out.println("The system is temporarily unavailable, please try again later.");
+        } catch (CustomerNotFoundException exc) {
+            errorHandler.showErrorMsg("Could not find a customer with that phone number."); 
+        } catch (DatabaseFailureException exc) {
+            errorHandler.showErrorMsg("The system is temporarily unavailable, please try again later.");
+            logger.logException(exc);
         }
     }
-
+    /**
+     * Simulates a repair flow with discount.
+     */
     private void runDiscountFlow() {
         PhoneNumber phone = new PhoneNumber("0701234567");
         SerialNumber serial = new SerialNumber("BIKE456");
@@ -107,9 +120,10 @@ public class View {
             RepairOrderDTO order = contr.acceptRepair();
             System.out.println("Order total with loyal customer discount: " + order.getTotalCost() + " SEK");
         } catch (CustomerNotFoundException e) {
-            System.out.println( "Could not find a customer with that phone number.");
-    } catch (IllegalStateException e) {
-            System.out.println("Operation could not be completed.");
+            errorHandler.showErrorMsg("Could not find a customer with that phone number.");
+        } catch (IllegalStateException exc) {
+            errorHandler.showErrorMsg("Operation could not be completed.");
+            logger.logException(exc);
         }
 }
 }

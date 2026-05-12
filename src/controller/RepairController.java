@@ -3,6 +3,8 @@ package controller;
 import dto.CustomerDTO;
 import dto.RepairOrderDTO;
 import exception.CustomerNotFoundException;
+import exception.OperationFailedException;
+import exception.RepairOrderNotFoundException;
 import integration.CustomerRegistry;
 import integration.Printer;
 import integration.RepairOrderRegistry;
@@ -70,11 +72,12 @@ public class RepairController {
                                             RepairOrderObserver... observers) throws CustomerNotFoundException {
         Customer customer = customerRegistry.findCustomer(phone);
         Bike bike = new Bike("Brand", "Model", serial);
-        currentOrder = new RepairOrder(new OrderId(), problem, customer, bike);
+        RepairOrder newOrder = new RepairOrder(new OrderId(), problem, customer, bike);
         for (RepairOrderObserver obs : observers) {
-            currentOrder.addObserver(obs);
+            newOrder.addObserver(obs);
         }
-        orderRegistry.save(currentOrder);
+        orderRegistry.save(newOrder);
+        currentOrder = newOrder;
         return new RepairOrderDTO(currentOrder);
     }
 
@@ -143,10 +146,15 @@ public class RepairController {
      * Finds an order by its id.
      *
      * @param id The order id to search for.
-     * @return The matching order as DTO, or null if not found.
+     * @return The matching order as DTO.
+     * @throws OperationFailedException if the order is not found.
      */
-    public RepairOrderDTO findOrder(OrderId id) {
-        return orderRegistry.findById(id);
+    public RepairOrderDTO findOrder(OrderId id) throws OperationFailedException {
+        try {
+            return orderRegistry.findById(id);
+        } catch (RepairOrderNotFoundException exc) {
+            throw new OperationFailedException("Could not find repair order.", exc);
+        }
     }
     /**
      * Checks that a repair order currently exists.

@@ -51,8 +51,12 @@ public class RepairOrder {
      * Sets the discount strategy to use when accepting this order.
      *
      * @param strategy The discount strategy to apply.
+     * @throws IllegalArgumentException if the strategy is null.
      */
     public void setDiscountStrategy(DiscountStrategy strategy) {
+        if (strategy == null) {
+            throw new IllegalArgumentException("Discount strategy cannot be null.");
+        }
         this.discountStrategy = strategy;
     }
 
@@ -60,8 +64,12 @@ public class RepairOrder {
      * Adds one diagnostic result to this order and notifies observers.
      *
      * @param result The result to add.
+     * @throws IllegalStateException IllegalArgumentException if the result is null.
      */
     public void addDiagnosticResult(DiagnosticResult result) {
+        if (result == null) {
+            throw new IllegalArgumentException("Diagnostic result cannot be null.");
+        }
         diagnostics.add(result);
         notifyObservers();
     }
@@ -70,8 +78,12 @@ public class RepairOrder {
      * Adds one repair task to this order and notifies observers.
      *
      * @param task The task to add.
+     * @throws IllegalStateException IllegalArgumentException if the task is null.
      */
     public void addRepairTask(RepairTask task) {
+        if (task == null) {
+            throw new IllegalArgumentException("Task cannot be null.");
+        }
         tasks.add(task);
         notifyObservers();
     }
@@ -206,10 +218,18 @@ public class RepairOrder {
                 + " problem: " + problem + " state: " + state + " diagnostics: " + diagnostics + " tasks: " + tasks + " total cost: " + getTotalCost() + " SEK";
     }
 
+    /**
+     * Notifies all registered observers about the latest order state.
+     */
     private void notifyObservers() {
         RepairOrderDTO dto = new RepairOrderDTO(this);
         for (RepairOrderObserver observer : observers) {
-            observer.orderUpdated(dto);
+            try {
+                observer.orderUpdated(dto);
+            } catch (Exception exc) {
+                System.err.println("Failed to notify observer.");
+                exc.printStackTrace();
+            }
         }
     }
 }

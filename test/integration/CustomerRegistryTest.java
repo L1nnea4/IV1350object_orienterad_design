@@ -77,4 +77,14 @@ public class CustomerRegistryTest {
     assertNotNull(exception.getMessage(),    "CustomerNotFoundException should contain an error message."
 );
 }
+
+/**
+ * Verifies that DatabaseFailureException
+ * contains an error message.
+ */
+@Test
+public void testDatabaseFailureExceptionMessage() {
+    DatabaseFailureException exception =assertThrows(DatabaseFailureException.class,() -> registry.findCustomer(new PhoneNumber("999999999")));
+    assertNotNull(exception.getMessage(), "DatabaseFailureException should contain an error message.");
+}
 }

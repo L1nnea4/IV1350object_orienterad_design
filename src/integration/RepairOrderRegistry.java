@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dto.RepairOrderDTO;
+import exception.RepairOrderNotFoundException;
 import model.OrderId;
 import model.RepairOrder;
 
@@ -43,15 +44,16 @@ public class RepairOrderRegistry {
      * Finds one order by id.
      *
      * @param id The id to search for.
-     * @return The matching order DTO, or null if not found.
+     * @return The matching order DTO.
+     * @throws RepairOrderNotFoundException if no order with the given id is found.
      */
-    public RepairOrderDTO findById(OrderId id) {
+    public RepairOrderDTO findById(OrderId id) throws RepairOrderNotFoundException {
         for (RepairOrderDTO dto : orders) {
             if (dto.getOrderId() == id.getValue()) {
                 return dto;
         }
     }
-    return null;
+        throw new RepairOrderNotFoundException(id);
 }
 
     /**

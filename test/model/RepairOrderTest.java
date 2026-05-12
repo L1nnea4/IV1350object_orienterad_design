@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -147,5 +148,45 @@ public class RepairOrderTest {
     @Test
     public void testInitialStateIsCreated() {
         assertEquals(OrderState.CREATED, order.getState(),    "A newly created repair order should have state CREATED.");
+    }
+
+    /**
+     * Verifies that adding null repair task throws exception.
+     */
+    @Test
+    public void testAddNullRepairTaskThrowsException() {
+        assertThrows(IllegalArgumentException.class,() -> order.addRepairTask(null),"Adding null repair task should throw IllegalArgumentException.");
+    }
+
+    /**
+     * Verifies that adding null diagnostic throws exception.
+    */
+    @Test
+    public void testAddNullDiagnosticThrowsException() {
+        assertThrows(IllegalArgumentException.class,() -> order.addDiagnosticResult(null),"Adding null diagnostic should throw IllegalArgumentException.");
+    }
+
+    /**
+     * Verifies that null discount strategy throws exception.
+    */
+    @Test
+    public void testNullDiscountStrategyThrowsException() {
+        assertThrows(IllegalArgumentException.class,() -> order.setDiscountStrategy(null), "Null discount strategy should throw IllegalArgumentException." );
+    }
+
+    /**
+     * Verifies that repair order state does not change
+     * when exception is thrown.
+     */
+    @Test
+    public void testStateNotChangedWhenExceptionThrown() {
+        int before = order.getNumberOfTasks();
+        try {
+            order.addRepairTask(null);
+        } catch (IllegalArgumentException exc) {
+            // expected exception
+        }
+        int after = order.getNumberOfTasks();
+        assertEquals(before, after, "Order state should not change when exception is thrown.");
     }
 }

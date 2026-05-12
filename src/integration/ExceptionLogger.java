@@ -26,3 +26,5 @@ public class ExceptionLogger {
         }
     }
 }
+
+// ta bort filen
