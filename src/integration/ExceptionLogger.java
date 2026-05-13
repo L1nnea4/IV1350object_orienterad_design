@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 /**
  * Logs exception information to a file so that developers can inspect errors.
  */
+/*
+
 public class ExceptionLogger {
     private static final String LOG_FILE = "bikerepair-error.log";
 
@@ -16,7 +18,7 @@ public class ExceptionLogger {
      *
      * @param e The exception to log.
      */
-    public void logException(Exception e) {
+    /*public void logException(Exception e) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(LOG_FILE, true))) {
             writer.println("[" + LocalDateTime.now() + "] " + e.getMessage());
             e.printStackTrace(writer);
@@ -25,6 +27,6 @@ public class ExceptionLogger {
             System.err.println("Could not write to log file: " + ioException.getMessage());
         }
     }
-}
+}*/
 
 // ta bort filen
