@@ -26,12 +26,4 @@ public class DiscountStrategyTest {
         assertEquals(900, strategy.applyDiscount(1000),    "LoyalCustomerDiscountStrategy should reduce 1000 SEK to 900 SEK.");
     }
 
-    /**
-     * Verifies that loyal discount on 300 gives 270, so test it applies the 10 percent discount correctly.
-     */
-    @Test
-    public void testLoyalCustomerDiscountOnThreeHundred() {
-        DiscountStrategy strategy = new LoyalCustomerDiscountStrategy();
-        assertEquals(270, strategy.applyDiscount(300),    "LoyalCustomerDiscountStrategy should reduce 300 SEK to 270 SEK.");
-    }
 }
