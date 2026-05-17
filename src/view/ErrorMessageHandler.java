@@ -12,15 +12,11 @@ public class ErrorMessageHandler {
     /**
      * Shows the specified error message.
      *
-     * @param msg The error message.
+     * @param message The error message.
      */
-    public void showErrorMsg(String msg) {
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(createTime());
-        builder.append(" ERROR: ");
-        builder.append(msg);
-        System.out.println(builder);
+    public void showErrorMsg(String message) {
+        System.out.println("[" + createTime() + "] "+ "[ERROR] " + message);
     }
 
     /**
@@ -29,13 +25,10 @@ public class ErrorMessageHandler {
      * @return Current time as text.
      */
     private String createTime() {
-
-        LocalDateTime now = LocalDateTime.now();
-
+        LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter =
                 DateTimeFormatter.ofLocalizedTime(
                         FormatStyle.MEDIUM);
-
-        return now.format(formatter);
+        return currentTime.format(formatter);
     }
 }

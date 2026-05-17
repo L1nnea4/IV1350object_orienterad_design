@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: integration.RepairOrderRegistryTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.076 s -- in integration.RepairOrderRegistryTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.084 s -- in integration.RepairOrderRegistryTest

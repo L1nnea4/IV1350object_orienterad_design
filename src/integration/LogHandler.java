@@ -22,32 +22,29 @@ public class LogHandler {
         try {
             logFile = new PrintWriter(new FileWriter(LOG_FILE_NAME, true));
         } catch (IOException exc) {
-            System.out.println("Could not open log file.");
+            System.err.println("Could not open log file.");
         }
     }
 
     /**
      * Logs a normal message.
      *
-     * @param msg The message to log.
+     * @param message The message to log.
      */
-    public void logMessage(String msg) {
-        logFile.println(createTime() + ", Message: " + msg);
+    public void logMessage(String message) {
+        logFile.println("[" + createTime() + "] " + " Message: " + message);
         logFile.flush();
     }
-
+    
     /**
-     * Logs the specified exception.
+     * Writes exception information to the log file.
      *
      * @param exception The exception to log.
      */
     public void logException(Exception exception) {
-        StringBuilder builder = new StringBuilder();
-        builder.append(createTime());
-        builder.append(", Exception was thrown: ");
-        builder.append(exception.getMessage());
-        logFile.println(builder);
+      logFile.println("[" + createTime() + "] " + "Exception: "+ exception.getMessage());
         exception.printStackTrace(logFile);
+        logFile.println();
         logFile.flush();
     }
 
@@ -57,8 +54,8 @@ public class LogHandler {
      * @return Current time.
      */
     private String createTime() {
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM);
-        return now.format(formatter);
+        return currentTime.format(formatter);
     }
 }
