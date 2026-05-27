@@ -598,3 +598,17 @@ exception.DatabaseFailureException: Database failure when searching for phone nu
 [18:58:27]  Message: Order 2 | Customer: Linnea | Bike: Brand Model BIKE456 | Problem: Flat tire | State: CREATED | Diagnostics: [Rear tire puncture] | Total cost: 0 SEK
 [18:58:27]  Message: Order 2 | Customer: Linnea | Bike: Brand Model BIKE456 | Problem: Flat tire | State: CREATED | Diagnostics: [Rear tire puncture] | Tasks: [Replace tire: New rear tire (300 SEK)] | Total cost: 300 SEK
 [18:58:27]  Message: Order 2 | Customer: Linnea | Bike: Brand Model BIKE456 | Problem: Flat tire | State: ACCEPTED | Diagnostics: [Rear tire puncture] | Tasks: [Replace tire: New rear tire (300 SEK)] | Total cost: 270 SEK
+[19:01:52]  Message: Order 1 | Customer: Linnea | Bike: Brand Model BIKE123 | Problem: Broken brake | State: CREATED | Diagnostics: [Brake worn out] | Total cost: 0 SEK
+[19:01:52]  Message: Order 1 | Customer: Linnea | Bike: Brand Model BIKE123 | Problem: Broken brake | State: CREATED | Diagnostics: [Brake worn out] | Tasks: [Replace brake: Fix brake (500 SEK)] | Total cost: 500 SEK
+[19:01:52]  Message: Order 1 | Customer: Linnea | Bike: Brand Model BIKE123 | Problem: Broken brake | State: ACCEPTED | Diagnostics: [Brake worn out] | Tasks: [Replace brake: Fix brake (500 SEK)] | Total cost: 500 SEK
+[19:01:52] Exception: Database failure when searching for phone number: 999999999
+exception.DatabaseFailureException: Database failure when searching for phone number: 999999999
+	at integration.CustomerRegistry.findCustomer(CustomerRegistry.java:27)
+	at controller.RepairController.findCustomer(RepairController.java:57)
+	at view.View.runDatabaseFailureFlow(View.java:101)
+	at view.View.runFakeExecution(View.java:49)
+	at startup.Main.main(Main.java:26)
+
+[19:01:52]  Message: Order 2 | Customer: Linnea | Bike: Brand Model BIKE456 | Problem: Flat tire | State: CREATED | Diagnostics: [Rear tire puncture] | Total cost: 0 SEK
+[19:01:52]  Message: Order 2 | Customer: Linnea | Bike: Brand Model BIKE456 | Problem: Flat tire | State: CREATED | Diagnostics: [Rear tire puncture] | Tasks: [Replace tire: New rear tire (300 SEK)] | Total cost: 300 SEK
+[19:01:52]  Message: Order 2 | Customer: Linnea | Bike: Brand Model BIKE456 | Problem: Flat tire | State: ACCEPTED | Diagnostics: [Rear tire puncture] | Tasks: [Replace tire: New rear tire (300 SEK)] | Total cost: 270 SEK
