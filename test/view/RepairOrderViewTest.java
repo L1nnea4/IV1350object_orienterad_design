@@ -54,7 +54,8 @@ public class RepairOrderViewTest {
         RepairOrderView view = new RepairOrderView();
         view.orderUpdated(dto);
         String result = output.toString();
-        assertTrue( result.contains("ORDER UPDATE"), "RepairOrderView should print update header.");
-        assertTrue( result.contains("Problem"), "RepairOrderView should print repair order information.");
+        assertTrue( result.contains("ORDER UPDATE"), "RepairOrderView should print update of order.");
+        assertTrue( result.contains("Problem"), "RepairOrderView should printthe problem description.");
+        assertTrue(result.contains("CREATED"),"RepairOrderView should print the repair order state.");
     }
 }

@@ -11,8 +11,6 @@ import model.RepairOrderObserver;
  */
 public abstract class RepairOrderObserverTemplate implements RepairOrderObserver {
 
-    private RepairOrderDTO currentOrder;
-
     /**
      * Template method defined by the observer interface.
      *
@@ -20,16 +18,16 @@ public abstract class RepairOrderObserverTemplate implements RepairOrderObserver
      */
     @Override
     public final void orderUpdated(RepairOrderDTO orderDTO) {
-        currentOrder = orderDTO;
-        processUpdate();
+        processUpdate(orderDTO);
     }
 
     /**
      * Defines the fixed algorithm structure.
+     * @param orderDTO The updated repair order.
      */
-    private void processUpdate() {
+    private void processUpdate(RepairOrderDTO orderDTO) {
         try {
-            doHandleRepairOrderUpdate(currentOrder);
+            doHandleRepairOrderUpdate(orderDTO);
         } catch (Exception exception) {
             handleErrors(exception);
         }
@@ -41,15 +39,12 @@ public abstract class RepairOrderObserverTemplate implements RepairOrderObserver
      * @param orderDTO The updated repair order.
      * @throws Exception If update handling fails.
      */
-    protected abstract void doHandleRepairOrderUpdate(
-            RepairOrderDTO orderDTO)
-            throws Exception;
+    protected abstract void doHandleRepairOrderUpdate(RepairOrderDTO orderDTO)throws Exception;
 
     /**
      * Handles errors occurring during update processing.
      *
      * @param exception The exception that occurred.
      */
-    protected abstract void handleErrors(
-            Exception exception);
+    protected abstract void handleErrors(Exception exception);
 }

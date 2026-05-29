@@ -39,50 +39,31 @@ public class ViewOutputTest {
         System.setOut(originalOut);
     }
 
-    /**
-     * Verifies that all scenarios and information
-     * printouts in the View class are executed.
-     */
-    @Test
-    public void testRunFakeExecutionPrintsAllScenarios() {
 
+/**
+* Verifies that the View prints all information output that matter
+* during the hardcoded execution flow, like succesful repair flow and customer lookup failures.
+*/
+    @Test
+    public void testRunFakeExecutionPrintsInformation() {
         RepairOrderRegistry registry = RepairOrderRegistry.getInstance();
         registry.clear();
-        RepairController controller = new RepairController(new CustomerRegistry(), registry, new Printer());
+        RepairController controller = new RepairController(new CustomerRegistry(),registry,new Printer());
         View view = new View(controller);
         view.runFakeExecution();
         String result = output.toString();
 
-        /*
-         * Scenario headings.
-         */
-        assertTrue(result.contains("SCENARIO 1"),"Scenario 1 should be printed.");
-        assertTrue(result.contains("SCENARIO 2"),"Scenario 2 should be printed.");
-        assertTrue(result.contains("SCENARIO 3"),"Scenario 3 should be printed.");
-        assertTrue(result.contains("SCENARIO 4"),"Scenario 4 should be printed.");
+        assertTrue(result.contains("Linnea"),"Customer information should be printed.");
+        assertTrue(result.contains("Broken brake"),"Repair order information should be printed.");
+        assertTrue(result.contains("Brake worn out"),"Diagnostic information should be printed.");
+        assertTrue(result.contains("Replace brake"),"Repair task information should be printed.");
+        assertTrue(result.contains("500"),"Repair cost should be printed.");
 
-        /*
-         * Successful flow.
-         */
-        assertTrue(result.contains("Find customer"),"Customer lookup should be printed.");
-        assertTrue(result.contains("Created order"),"Order creation should be printed.");
-        assertTrue(result.contains("After diagnostic"),"Diagnostic update should be printed.");
-        assertTrue(result.contains("After task"),"Repair task update should be printed.");
-        assertTrue(result.contains("Accepted order total"),"Accepted order total should be printed.");
+        assertTrue(result.contains("Could not find a customer with that phone number."),"Customer not found message should be printed.");
 
-        /*
-         * Unknown customer scenario.
-         */
-        assertTrue(result.contains("Could not find a customer with that phone number."),"Unknown customer error should be printed.");
+        assertTrue(result.contains("The system is temporarily unavailable"),"Database failure message should be printed.");
 
-        /*
-         * Database failure scenario.
-         */
-        assertTrue(result.contains("The system is temporarily unavailable"), "Database failure error should be printed.");
-
-        /*
-         * Discount scenario.
-         */
-        assertTrue(result.contains( "Order total with loyal customer discount"),"Discount result should be printed.");
-    }
+        assertTrue(result.contains("Order total with loyal customer discount"),"Discount information should be printed.");
+        assertTrue(result.contains("270"),"Discounted total cost should be printed.");
+}
 }

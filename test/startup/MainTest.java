@@ -35,17 +35,19 @@ public class MainTest {
     }
 
     /**
-     * Verifies that the application prints output.
+     * Verifies that the application prints output from the hardcoded execution flow.
      */
     @Test
     public void testMainPrintsOutput() {
 
         Main.main(new String[]{});
         String result = output.toString();
+        assertTrue(result.length() > 0,"Main should produce output.");
+
         assertTrue(
-                result.contains("SCENARIO")
-                || result.contains("Find customer")
-                || result.contains("Created order"),
+                result.contains("Find customer")
+                || result.contains("Created order")
+                || result.contains("Accepted order total"),
                 "Main should print application output."
         );
     }
