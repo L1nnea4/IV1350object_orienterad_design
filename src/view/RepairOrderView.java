@@ -1,23 +1,35 @@
 package view;
 
 import dto.RepairOrderDTO;
-import model.RepairOrderObserver;
+import template.RepairOrderObserverTemplate;
 
 /**
  * Observer that prints updated repair orders to the terminal.
- * Technicians and receptionists see live updates this way.
- * This class never calls the controller; it only receives updates through the Observer pattern.
+ *
+ * Technicians and receptionists receive repair order updates
+ * through the Observer pattern.
  */
-public class RepairOrderView implements RepairOrderObserver {
+public class RepairOrderView extends RepairOrderObserverTemplate {
+
+    private ErrorMessageHandler errorHandler = new ErrorMessageHandler();
 
     /**
-     * Called automatically when a repair order is updated.
-     * Prints the current state of the order to System.out.
+     * Prints the updated repair order.
      *
-     * @param orderDTO A snapshot of the updated order.
+     * @param orderDTO The updated repair order.
      */
     @Override
-    public void orderUpdated(RepairOrderDTO orderDTO) {
+    protected void doHandleRepairOrderUpdate(RepairOrderDTO orderDTO) {
         System.out.println("[ORDER UPDATE] " + orderDTO);
+    }
+
+    /**
+     * Handles observer related errors.
+     *
+     * @param exception The exception that occurred.
+     */
+    @Override
+    protected void handleErrors(Exception exception) {
+        errorHandler.showErrorMsg("Could not display repair order update.");
     }
 }

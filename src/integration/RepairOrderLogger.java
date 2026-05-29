@@ -1,30 +1,32 @@
 package integration;
 
 import dto.RepairOrderDTO;
-import model.RepairOrderObserver;
+import template.RepairOrderObserverTemplate;
 
 /**
  * Observer that writes repair order updates to a log file.
- * This class never calls the controller, it only receives updates through the Observer pattern.
  */
-public class RepairOrderLogger implements RepairOrderObserver {
-    private final LogHandler logger;
+public class RepairOrderLogger extends RepairOrderObserverTemplate {
 
-   /**
-     * Creates a new logger observer.
+    private final LogHandler logger = new LogHandler();
+
+    /**
+     * Writes the updated repair order to the log file.
+     *
+     * @param orderDTO The updated repair order.
      */
-    public RepairOrderLogger() {
-        logger = new LogHandler();
+    @Override
+    protected void doHandleRepairOrderUpdate(RepairOrderDTO orderDTO) {
+        logger.logMessage(orderDTO.toString());
     }
 
     /**
-     * Called automatically when a repair order is updated.
-     * Writes the current order state to the log file.
+     * Logs observer related failures.
      *
-     * @param orderDTO A snapshot of the updated order.
+     * @param exception The exception that occurred.
      */
     @Override
-    public void orderUpdated(RepairOrderDTO orderDTO) {
-        logger.logMessage(orderDTO.toString());
+    protected void handleErrors(Exception exception) {
+        logger.logException(exception);
     }
 }
