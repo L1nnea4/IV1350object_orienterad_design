@@ -8,6 +8,9 @@ import java.util.Random;
  * This class extends Random and adds a new method
  * that generates a random number inside a specified range.
  */
+
+// ska ta bort denna fil och hela addtional giher grade mapp
+//  la additional higher grade filer i samma src som repair electric bike uppgift
 public class BetterRandomInheritance extends Random {
 
     /**

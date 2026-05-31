@@ -2,6 +2,10 @@ package composition;
 
 import java.util.Random;
 
+// ska ta bort denna fil och hela addtional giher grade mapp
+//  la additional higher grade filer i samma src som repair electric bike uppgift
+
+
 /**
  * Adapts the Random class using composition.
  *

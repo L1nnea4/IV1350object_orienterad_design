@@ -3,6 +3,9 @@ package startup;
 import composition.BetterRandomComposition;
 import inheritance.BetterRandomInheritance;
 
+
+// ska ta bort denna fil och hela addtional giher grade mapp
+//  la additional higher grade filer i samma src som repair electric bike uppgift
 /**
  * Demonstrates adaptation of java.util.Random
  * using both inheritance and composition.

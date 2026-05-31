@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: view.RepairOrderViewTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.097 s -- in view.RepairOrderViewTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.070 s -- in view.RepairOrderViewTest
